@@ -1,0 +1,12 @@
+<span class="layui-breadcrumb" style="margin-left:20px;padding-top: 10px;font-size: 30px">
+  <a href="">{{moduleName}}</a>
+  <a href="">{{childModuleName}}</a>
+</span>
+<script>
+    layui.use('element',function () {
+        var element = layui.element;
+        element.init();
+    });
+</script>
+<!--angularjs 二级路由-->
+<div ui-view style="padding-top: 10px"></div>

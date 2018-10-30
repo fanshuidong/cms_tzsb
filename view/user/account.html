@@ -1,0 +1,91 @@
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <!--search-->
+                <div class="layui-form layui-card-header" style="padding:15px 0;height: auto">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">用户编号</label>
+                            <div class="layui-input-block">
+                                <input type="text" class="layui-input" ng-model="searchEntity.uid">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">账户</label>
+                            <div class="layui-input-block">
+                                <input type="text" class='layui-input' ng-model="searchEntity.uname">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">账户类型</label>
+                            <div class="layui-input-block">
+                                <select lay-ignore ng-model="searchEntity.type" ui-select2="selectOptions" class="form-control" style="width: 200px">
+                                    <option  data-ng-repeat="item in accountType" value="{{item.value}}">{{item.text}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <button class="layui-btn" ng-click="search()"><i class="layui-icon layui-icon-search"></i></button>
+                        </div>
+                        <div class="layui-inline">
+                            <button class="layui-btn" ng-click="refresh()"><i class="layui-icon layui-icon-refresh"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-card-body">
+                    <table class="layui-table" lay-skin="line">
+                        <thead>
+                        <tr>
+                            <th>账户编号</th>
+                            <th>用户编号</th>
+                            <th>手机</th>
+                            <th>账户类型</th>
+                            <th>注册时间</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in list">
+                            <td>{{item.id}}</td>
+                            <td>{{item.uid}}</td>
+                            <td>{{item.uname}}</td>
+                            <td>{{item.type}}</td>
+                            <td>{{item.created | timeFilter}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div id="page"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--编辑用户页面-->
+<form class="layui-form" id="user" ng-submit="submit()" style="padding: 20px 30px 0 0;display: none">
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户名</label>
+        <div class="layui-input-inline">
+            <input type="text"  lay-verify="required" class="layui-input" data-ng-model="user.uname">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">密码</label>
+        <div class="layui-input-inline">
+            <input type="password"  lay-verify="required" class="layui-input" data-ng-model="user.password">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">昵称</label>
+        <div class="layui-input-inline">
+            <input type="text"  lay-verify="required" class="layui-input" data-ng-model="user.nickname">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block" style="text-align: right;padding-top: 20px">
+            <button class="layui-btn" lay-submit>确认提交</button>
+        </div>
+    </div>
+</form>
+

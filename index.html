@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js" > <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js" > <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<head>
+    <title>管理后台</title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="lib/layui-v2.4.2/layui/css/layui.css">
+    <link href="lib/global/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="lib/global/css/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+    <link href="lib/global/css/angular-datepicker.css" rel="stylesheet" type="text/css"/>
+    <link href="lib/bootstrap-fileinput/css/fileinput.min.css" rel="stylesheet" type="text/css"/>
+    <link href="lib/bootstrap-switch-master/dist/css/bootstrap3/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="lib/select2/select2-bootstrap.css">
+    <link rel="stylesheet" href="lib/select2/select2.css">
+    <link rel="stylesheet" href="lib/bootstrap-toastr/toastr.css">
+   <!-- <link href="lib/ztree/css/metroStyle/metroStyle.css" rel="stylesheet" />-->
+    <link href="lib/ztree/css/zTreeStyle/zTreeStyle.css" rel="stylesheet" />
+    <style>
+        .ztree li span.button.add {
+            margin-left: 2px;
+            margin-right: -1px;
+            background-position: -144px 0;
+            vertical-align: top;
+        }
+        .layui-nav .layui-nav-item .layui-icon{
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            margin-top: -19px;
+        }
+        .layui-nav-tree .layui-nav-item a {
+            position: relative;
+            height: 45px;
+            line-height: 45px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            padding-left: 45px;
+            padding-right: 30px;
+        }
+    </style>
+</head>
+<!-- END HEAD -->
+<body class="layui-layout-body" ng-controller="AppController">
+<!--请求延迟加载动画-->
+<div class="landmark" landanimation></div>
+<!--头部-->
+<div data-ng-include="'view/include/header.html'" data-ng-controller="HeaderController"></div>
+<!--左侧导航栏-->
+<div data-ng-include="'view/include/sidebar.html'" data-ng-controller="IndexSidebarController"></div>
+<!--angularjs 一级路由-->
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-body" style=" background-color: #F2F2F2">
+        <div ui-view></div>
+    </div>
+</div>
+<script src="lib/layui-v2.4.2/layui/layui.js"></script>
+<script src="js/index.js"></script>
+<script src="http://api.map.baidu.com/api?v=2.0&ak=z2VeCrh4n9rSthZv0wvcqO2NpEqmTSS1"></script>
+<script src="lib/requirejs/require.js"></script>
+<script src="js/main.js"></script>
+</body>
+<!-- END BODY -->
+</html>

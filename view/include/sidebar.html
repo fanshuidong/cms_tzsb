@@ -1,0 +1,72 @@
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <!--<ul class="layui-nav layui-nav-tree"  lay-shrink="all" lay-filter="leftNav">-->
+                <!--<li class="layui-nav-item" ng-repeat="item in parentResourceList track by $index" ng-class="{'layui-nav-itemed':$index==0}">-->
+                    <!--<a class="" href="javascript:;">{{item.name}}</a>-->
+                    <!--<dl class="layui-nav-child">-->
+                        <!--<dd ng-repeat="child in resourceMapping['/'+item.url] " ng-class="{'layui-this':path.indexOf('/{{item.url}}/{{child.url}}')!=-1}">-->
+                            <!--<a  ng-href="#/{{item.url}}/{{child.url}}" id="/{{item.url}}/{{child.url}}">{{child.name}}</a>-->
+                        <!--</dd>-->
+                    <!--</dl>-->
+                <!--</li>-->
+            <!--</ul>-->
+
+            <ul class="layui-nav layui-nav-tree"  lay-shrink="all" lay-filter="leftNav">
+                <li class="layui-nav-item" ng-class="{'layui-nav-itemed':path.indexOf('/user')!=-1}">
+                    <a  href="javascript:;"><i class="layui-icon layui-icon-user"></i><cite>用户管理</cite></a>
+                    <dl class="layui-nav-child">
+                        <dd><a  data-ng-click="goto('#/user/list','用户管理','用户列表')">用户列表</a></dd>
+                        <dd><a  data-ng-click="goto('#/user/account','用户管理','账户列表')">账户列表</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item" ng-class="{'layui-nav-itemed':path.indexOf('/useCompany')!=-1}">
+                    <a class="" href="javascript:;"><i class="layui-icon layui-icon-component"></i><cite>使用单位</cite></a>
+                    <dl class="layui-nav-child">
+                        <dd><a  data-ng-click="goto('#/useCompany/list','使用单位','单位列表')">单位列表</a></dd>
+                        <dd><a  data-ng-click="goto('#/useCompany/listArea','使用单位','单位列表(地区)')">单位列表(地区)</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a class="" href="javascript:;"><i class="layui-icon layui-icon-user"></i><cite>维保单位</cite></a>
+                    <dl class="layui-nav-child">
+                        <dd><a  data-ng-click="goto('#/repairCompany/list','维保单位','单位列表')">单位列表</a></dd>
+                        <dd><a  data-ng-click="goto('#/repairCompany/listArea','维保单位','单位列表(地区)')">单位列表(地区)</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item" ng-class="{'layui-nav-itemed':path.indexOf('/equipment')!=-1}">
+                    <a class="" href="javascript:;"><i class="layui-icon layui-icon-component"></i><cite>设备管理</cite></a>
+                    <dl class="layui-nav-child">
+                        <dd><a  data-ng-click="goto('#/equipment/list','设备管理','设备列表')">设备列表</a></dd>
+                        <dd><a  data-ng-click="goto('#/equipment/listArea','使用单位','设备列表(地区)')">设备列表(地区)</a></dd>
+                        <dd><a  data-ng-click="goto('#/equipment/equipmentType','使用单位','设备类型')">设备类型</a></dd>
+                    </dl>
+                </li>
+
+                <li class="layui-nav-item" ng-class="{'layui-nav-itemed':path.indexOf('/homework')!=-1}">
+                    <a class="" href="javascript:;"><i class="layui-icon layui-icon-component"></i><cite>作业人员</cite></a>
+                    <dl class="layui-nav-child">
+                        <dd><a  data-ng-click="goto('#/homework/operators','作业人员','管理员列表')">管理员列表</a></dd>
+                        <dd><a  data-ng-click="goto('#/homework/useCompany','作业人员','使用单位列表">使用单位列表</a></dd>
+                        <dd><a  data-ng-click="goto('#/homework/certs','作业人员','资质列表')">资质列表</a></dd>
+                    </dl>
+                </li>
+
+                <li class="layui-nav-item">
+                    <a class="" href="javascript:;"><i class="layui-icon layui-icon-user"></i><cite>辖区管理</cite></a>
+                    <dl class="layui-nav-child">
+                        <dd><a data-ng-click="goto('#/popedom/tree','辖区管理','辖区树')">辖区树</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a class="" href="javascript:;"><i class="layui-icon layui-icon-user"></i><cite>系统管理</cite></a>
+                    <dl class="layui-nav-child">
+                        <dd><a  ng-href="#/system/districts">行政区划配置</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
