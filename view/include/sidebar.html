@@ -12,7 +12,6 @@
                     <!--</dl>-->
                 <!--</li>-->
             <!--</ul>-->
-
             <ul class="layui-nav layui-nav-tree"  lay-shrink="all" lay-filter="leftNav">
                 <li class="layui-nav-item" ng-class="{'layui-nav-itemed':path.indexOf('/user')!=-1}">
                     <a  href="javascript:;"><i class="layui-icon layui-icon-user"></i><cite>用户管理</cite></a>
@@ -39,7 +38,7 @@
                     <a class="" href="javascript:;"><i class="layui-icon layui-icon-component"></i><cite>设备管理</cite></a>
                     <dl class="layui-nav-child">
                         <dd><a  data-ng-click="goto('#/equipment/list','设备管理','设备列表')">设备列表</a></dd>
-                        <dd><a  data-ng-click="goto('#/equipment/listArea','使用单位','设备列表(地区)')">设备列表(地区)</a></dd>
+                        <dd><a  data-ng-click="goto('#/equipment/listCompany','使用单位','设备列表(企业)')">设备列表(企业)</a></dd>
                         <dd><a  data-ng-click="goto('#/equipment/equipmentType','使用单位','设备类型')">设备类型</a></dd>
                     </dl>
                 </li>
@@ -48,23 +47,30 @@
                     <a class="" href="javascript:;"><i class="layui-icon layui-icon-component"></i><cite>作业人员</cite></a>
                     <dl class="layui-nav-child">
                         <dd><a  data-ng-click="goto('#/homework/operators','作业人员','管理员列表')">管理员列表</a></dd>
-                        <dd><a  data-ng-click="goto('#/homework/useCompany','作业人员','使用单位列表">使用单位列表</a></dd>
+                        <dd><a  data-ng-click="goto('#/homework/useCompany','作业人员','使用单位列表')">使用单位列表</a></dd>
                         <dd><a  data-ng-click="goto('#/homework/certs','作业人员','资质列表')">资质列表</a></dd>
                     </dl>
                 </li>
 
-                <li class="layui-nav-item">
-                    <a class="" href="javascript:;"><i class="layui-icon layui-icon-user"></i><cite>辖区管理</cite></a>
+                <li class="layui-nav-item" ng-class="{'layui-nav-itemed':path.indexOf('/tenant')!=-1}">
+                    <a class="" href="javascript:;"><i class="layui-icon layui-icon-component"></i><cite>租户管理</cite></a>
                     <dl class="layui-nav-child">
-                        <dd><a data-ng-click="goto('#/popedom/tree','辖区管理','辖区树')">辖区树</a></dd>
+                        <dd><a  data-ng-click="goto('#/tenant/list','租户列表','管理员列表')">租户列表</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item">
-                    <a class="" href="javascript:;"><i class="layui-icon layui-icon-user"></i><cite>系统管理</cite></a>
-                    <dl class="layui-nav-child">
-                        <dd><a  ng-href="#/system/districts">行政区划配置</a></dd>
-                    </dl>
-                </li>
+
+                <!--<li class="layui-nav-item">-->
+                    <!--<a class="" href="javascript:;"><i class="layui-icon layui-icon-user"></i><cite>辖区管理</cite></a>-->
+                    <!--<dl class="layui-nav-child">-->
+                        <!--<dd><a data-ng-click="goto('#/popedom/tree','辖区管理','辖区树')">辖区树</a></dd>-->
+                    <!--</dl>-->
+                <!--</li>-->
+                <!--<li class="layui-nav-item">-->
+                    <!--<a class="" href="javascript:;"><i class="layui-icon layui-icon-user"></i><cite>系统管理</cite></a>-->
+                    <!--<dl class="layui-nav-child">-->
+                        <!--<dd><a  ng-href="#/system/districts">行政区划配置</a></dd>-->
+                    <!--</dl>-->
+                <!--</li>-->
             </ul>
         </div>
     </div>

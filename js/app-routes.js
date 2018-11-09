@@ -209,11 +209,17 @@ define(function (require) {
                 controllerUrl: 'viewjs/equipment/list.js',
                 controller: "equipmentListCtrl"
             })
-            .state("equipment.listArea", {
-                url: "/listArea",
-                templateUrl: "view/equipment/listArea.html",
-                controllerUrl: 'viewjs/equipment/listArea.js',
-                controller: "equipmentListAreaCtrl"
+            .state("equipment.listCompany", {
+                url: "/listCompany",
+                templateUrl: "view/equipment/listCompany.html",
+                controllerUrl: 'viewjs/equipment/listCompany.js',
+                controller: "equipmentListCompanyCtrl"
+            })
+            .state("equipment.equipmentType", {
+                url: "/equipmentType",
+                templateUrl: "view/equipment/equipmentType.html",
+                controllerUrl: 'viewjs/equipment/equipmentType.js',
+                controller: "equipmentTypeCtrl"
             })
             //作业人员
             .state("homework", {
@@ -238,6 +244,34 @@ define(function (require) {
                 controllerUrl: 'viewjs/homework/certs.js',
                 controller: "certsCtrl"
             })
+            //租户管理
+            .state("tenant", {
+                url: "/tenant",
+                templateUrl: "view/include/module.html"
+            })
+            .state("tenant.list", {
+                url: "/list",
+                templateUrl: "view/tenant/list.html",
+                controllerUrl: 'viewjs/tenant/list.js',
+                controller: "tenantListCtrl"
+            })
+            //自查自纠
+            // .state("introspect", {
+            //     url: "/introspect",
+            //     templateUrl: "view/include/module.html"
+            // })
+            // .state("introspect.list", {
+            //     url: "/list",
+            //     templateUrl: "view/introspect/list.html",
+            //     controllerUrl: 'viewjs/introspect/list.js',
+            //     controller: "introspectCtrl"
+            // })
+            // .state("introspect.list", {
+            //     url: "/list",
+            //     templateUrl: "view/introspect/list.html",
+            //     controllerUrl: 'viewjs/introspect/list.js',
+            //     controller: "introspectCtrl"
+            // })
             //辖区管理
             .state("popedom", {
                 url: "/popedom",

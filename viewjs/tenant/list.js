@@ -6,18 +6,18 @@ define(function (require) {
     require('ui-table');
     var toastr =require('toastr');
     app.useModule("ui.table");
-    app.controller('certsCtrl', ['$scope','$rootScope','$http','enums','DateUtil',function ($scope, $rootScope,$http,enums,DateUtil) {
+    app.controller('tenantListCtrl', ['$scope','$rootScope','$http','enums','DateUtil',function ($scope, $rootScope,$http,enums,DateUtil) {
         $scope.selectOptions = {
             allowClear: false,
             language : 'zh-CN'
         };
         $scope.query=function(reset){
             if(reset){
-                $scope.searchEntity = {"page":1,"pageSize":10}
+                $scope.searchEntity = {"page":1,"pageSize":10,"region":1001000000000}
             }
             $http({
                 method: 'POST',
-                url: "eep/company/operator/certs",
+                url: "eep/tenant/list",
                 data:$scope.searchEntity
             }).success(function(data) {
                 console.log(data);

@@ -6,7 +6,7 @@ define(function (require) {
     require('ui-table');
     var toastr =require('toastr');
     app.useModule("ui.table");
-    app.controller('equipmentTypeCtrl', ['$scope','$rootScope','$http','enums','DateUtil',function ($scope, $rootScope,$http,enums,DateUtil) {
+    app.controller('operatorsCtrl', ['$scope','$rootScope','$http','enums','DateUtil',function ($scope, $rootScope,$http,enums,DateUtil) {
         $scope.selectOptions = {
             allowClear: false,
             language : 'zh-CN'
@@ -17,7 +17,7 @@ define(function (require) {
             }
             $http({
                 method: 'POST',
-                url: "eep/company/operators/employee",
+                url: "eep/company/operators",
                 data:$scope.searchEntity
             }).success(function(data) {
                 console.log(data);

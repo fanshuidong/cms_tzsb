@@ -6,9 +6,15 @@
                 <div class="layui-form layui-card-header" style="padding:15px 0;height: auto">
                     <div class="layui-form-item">
                         <div class="layui-inline">
-                            <label class="layui-form-label">资质编号</label>
+                            <label class="layui-form-label">人员编号</label>
                             <div class="layui-input-block">
-                                <input type="text" class="layui-input" ng-model="searchEntity.id">
+                                <input type="text" class="layui-input" placeholder="作业人员编号" ng-model="searchEntity.id">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">单位编号</label>
+                            <div class="layui-input-block">
+                                <input type="text" class="layui-input" placeholder="使用单位编号" ng-model="searchEntity.cid">
                             </div>
                         </div>
                         <div class="layui-inline">
@@ -26,34 +32,30 @@
                     <table class="layui-table" lay-skin="line">
                         <thead>
                         <tr>
-                            <th>资质编号</th>
-                            <th>作业种类</th>
-                            <th>作业级别</th>
-                            <!--<th>批准项目明细</th>-->
-                            <th>持证状态</th>
-                            <th>学号(证书编号)</th>
-                            <th>资质类型</th>
-                            <th>有效日期</th>
                             <th>作业人员编号</th>
-                            <th>考核机构</th>
-                            <th>发证机构</th>
-                            <th>批准日期</th>
+                            <th>使用单位编号</th>
+                            <th>作业人员名字</th>
+                            <th>电话</th>
+                            <th>手机</th>
+                            <th>地址</th>
+                            <th>身份证</th>
+                            <th>出生年月</th>
+                            <th>学历</th>
+                            <th>证书有效期</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr ng-repeat="item in list">
                             <td>{{item.id}}</td>
-                            <td>{{item.type}}</td>
-                            <td>{{item.level}}</td>
-                            <!--<td>{{item.items}}</td>-->
-                            <td>{{item.state}}</td>
-                            <td>{{item.certno}}</td>
-                            <td>{{item.category}}</td>
-                            <td>{{item.expireTime}}</td>
-                            <td>{{item.operatorId}}</td>
-                            <td>{{item.examAgency}}</td>
-                            <td>{{item.issueAgency}}</td>
-                            <td>{{item.approvalTime}}</td>
+                            <td>{{item.cid}}</td>
+                            <td>{{item.name}}</td>
+                            <td>{{item.phone}}</td>
+                            <td>{{item.mobile}}</td>
+                            <td>{{item.address}}</td>
+                            <td>{{item.identity}}</td>
+                            <td>{{item.birthday}}</td>
+                            <td>{{item.education}}</td>
+                            <td>{{item.cerExpire}}</td>
                         </tr>
                         </tbody>
                     </table>

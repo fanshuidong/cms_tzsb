@@ -47,32 +47,43 @@ define(function (require) {
         };
 
         $scope.add  = function () {
-            $scope.index = openDomLayer("新增设备类型","user");
+            $scope.index = openDomLayer("新增设备类型","category");
             $scope.equipmentType = {};
             $scope.isAdd = true;
         };
         $scope.edit  = function (item) {
-            $scope.index = openDomLayer("编辑设备类型","user");
+            $scope.index = openDomLayer("编辑设备类型","category");
             $scope.equipmentType = {};
             for(var index in item)
                 $scope.equipmentType[index] = item[index];
             $scope.isAdd = false;
         };
-        $scope.delete = function () {
+        $scope.delete = function (item) {
             layer.confirm("确认删除该条记录吗？",function () {
-
+                $http({
+                    method: 'POST',
+                    url: "eep/device/category/delete",
+                    data:{id:item.code}
+                }).success(function(data) {
+                    if(data.code === $rootScope.successCode){
+                        toastr.success("操作成功!");
+                        layer.closeAll();
+                        $("#category").hide();
+                        $scope.query();
+                    }
+                });
             })
         };
         $scope.submit = function () {
             $http({
                 method: 'POST',
-                url: $scope.isAdd?"eep/user/create":"eep/user/modify",
+                url: $scope.isAdd?"eep/device/category/create":"eep/device/category/modify",
                 data:$scope.equipmentType
             }).success(function(data) {
                 if(data.code === $rootScope.successCode){
                     toastr.success("操作成功!");
                     layer.closeAll();
-                    $("#user").hide();
+                    $("#category").hide();
                     $scope.query();
                 }
             });

@@ -6,18 +6,19 @@ define(function (require) {
     require('ui-table');
     var toastr =require('toastr');
     app.useModule("ui.table");
-    app.controller('equipmentListAreaCtrl', ['$scope','$http','enums','DateUtil',function ($scope, $http,enums,DateUtil) {
+    app.controller('equipmentListCompanyCtrl', ['$scope','$http','enums','DateUtil',function ($scope, $http,enums,DateUtil) {
         $scope.selectOptions = {
             allowClear: false,
             language : 'zh-CN'
         };
         $scope.query=function(reset){
             if(reset){
-                $scope.searchEntity = {"page":1,"pageSize":10,"region":1001000000000}
+                $scope.searchEntity = {"page":1,"pageSize":10,"cid":"3a632fec013a91ca09cb1a7d5ef3fcbc5a7f"}
             }
             $http({
                 method: 'POST',
-                url: "eep/device/list/area",
+                headers:{"employeeid":4},
+                url: "eep/device/list/company",
                 data:$scope.searchEntity
             }).success(function(data) {
                 console.log(data);
