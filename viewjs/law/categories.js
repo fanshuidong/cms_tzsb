@@ -6,19 +6,18 @@ define(function (require) {
     require('ui-table');
     var toastr =require('toastr');
     app.useModule("ui.table");
-    app.controller('accountListCtrl', ['$scope','$http','enums','DateUtil',function ($scope, $http,enums,DateUtil) {
-        $scope.accountType = enums.accountType;
+    app.controller('lawCategoriesCtrl', ['$scope','$rootScope','$http','enums','DateUtil',function ($scope, $rootScope,$http,enums,DateUtil) {
         $scope.selectOptions = {
             allowClear: false,
             language : 'zh-CN'
         };
         $scope.query=function(reset){
             if(reset){
-                $scope.searchEntity = {"page":1,"pageSize":10,"region":1001000000000}
+                $scope.searchEntity = {"page":1,"pageSize":10}
             }
             $http({
                 method: 'POST',
-                url: "eep/uname/list/area",
+                url: "eep/common/law/categories",
                 data:$scope.searchEntity
             }).success(function(data) {
                 console.log(data);
@@ -46,38 +45,49 @@ define(function (require) {
         $scope.refresh = function () {
             $scope.query(true);
         };
+
         $scope.add  = function () {
-            $scope.index = openDomLayer("新增用户","user");
-            $scope.user = {};
+            $scope.index = openDomLayer("新增设备类型","category");
+            $scope.equipmentType = {};
             $scope.isAdd = true;
         };
         $scope.edit  = function (item) {
-            $scope.index = openDomLayer("编辑用户","user");
-            $scope.user = {};
+            $scope.index = openDomLayer("编辑设备类型","category");
+            $scope.equipmentType = {};
             for(var index in item)
-                $scope.user[index] = item[index];
+                $scope.equipmentType[index] = item[index];
             $scope.isAdd = false;
         };
-        $scope.delete = function () {
+        $scope.delete = function (item) {
             layer.confirm("确认删除该条记录吗？",function () {
-                
-            })  
+                $http({
+                    method: 'POST',
+                    url: "eep/device/category/delete",
+                    data:{id:item.code}
+                }).success(function(data) {
+                    if(data.code === $rootScope.successCode){
+                        toastr.success("操作成功!");
+                        layer.closeAll();
+                        $("#category").hide();
+                        $scope.query();
+                    }
+                });
+            })
         };
         $scope.submit = function () {
             $http({
                 method: 'POST',
-                url: $scope.isAdd?"sem/user/create":"sem/user/modify",
-                data:$scope.user
+                url: $scope.isAdd?"eep/device/category/create":"eep/device/category/modify",
+                data:$scope.equipmentType
             }).success(function(data) {
-                if(data.code === 'code.success'){
+                if(data.code === $rootScope.successCode){
                     toastr.success("操作成功!");
                     layer.closeAll();
-                    $("#user").hide();
+                    $("#category").hide();
                     $scope.query();
                 }
             });
         };
-
 
         //分页 laypage
         $scope.initPage = function(id,count,entity) {

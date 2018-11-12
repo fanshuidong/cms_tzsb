@@ -12,6 +12,7 @@ define(function (require) {
         $rootScope.path = $location.path();
         $rootScope.userName = window.localStorage.getItem("t_userName");
         $rootScope.uid = window.localStorage.getItem("t_uid");
+        $rootScope.region = window.localStorage.getItem("t_region");
         $rootScope.defaultPageSize = 10;
         $rootScope.successCode = "code.ok";
     }]);
@@ -55,27 +56,33 @@ define(function (require) {
                 $scope.list = {};
             };
 
-            $scope.confirm= function () {
-                if($scope.list.newPwd != $scope.list.newPassword){
-                    layer.tips('两次密码输入不匹配', '#newPassword');
-                    return;
-                }
-                $http({
-                    method: 'POST',
-                    url: "sem/common/pwd/modify",
-                    data:{
-                        pwd:$scope.list.newPwd,
-                        opwd:$scope.list.oldPwd
-                    }
-                }).success(function(data) {
-                    if(data.code=="code.success"){
-                        toastr.success('修改成功');
-                        $scope.changeModal = !$scope.changeModal;
-                        $timeout(function () {
-                            location.reload();
-                        },1000);
-                    }
+            layui.use(['form'],function () {
+                var form = layui.form;
+                form.verify({
+                    password: [/(.+){6,12}$/, '密码必须6到12位']
                 });
+                form.on('submit(modifyPwd)',function (data) {
+                    if(data.field.npassword !== data.field.newPassword){
+                        layer.tips('两次密码输入不匹配', '#newPassword');
+                        return;
+                    }
+                    $http({
+                        method: 'POST',
+                        url: "eep/user/pwd/modify",
+                        data:$scope.list
+                    }).success(function(data) {
+                        if(data.code==="code.ok"){
+                            toastr.success('修改成功');
+                            $scope.changeModal = !$scope.changeModal;
+                            $timeout(function () {
+                                location.reload();
+                            },1000);
+                        }
+                    });
+                })
+            });
+            $scope.confirm= function () {
+
             };
         }
 
@@ -254,6 +261,23 @@ define(function (require) {
                 templateUrl: "view/tenant/list.html",
                 controllerUrl: 'viewjs/tenant/list.js',
                 controller: "tenantListCtrl"
+            })
+            //法律法规
+            .state("law", {
+                url: "/law",
+                templateUrl: "view/include/module.html"
+            })
+            .state("law.categories", {
+                url: "/categories",
+                templateUrl: "view/law/categories.html",
+                controllerUrl: 'viewjs/law/categories.js',
+                controller: "lawCategoriesCtrl"
+            })
+            .state("law.list", {
+                url: "/list",
+                templateUrl: "view/law/list.html",
+                controllerUrl: 'viewjs/law/list.js',
+                controller: "lawListCtrl"
             })
             //自查自纠
             // .state("introspect", {

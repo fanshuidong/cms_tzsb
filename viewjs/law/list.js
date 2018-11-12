@@ -6,18 +6,18 @@ define(function (require) {
     require('ui-table');
     var toastr =require('toastr');
     app.useModule("ui.table");
-    app.controller('userListCtrl', ['$scope','$http','enums','DateUtil','$rootScope',function ($scope, $http,enums,DateUtil,$rootScope) {
+    app.controller('lawListCtrl', ['$scope','$http','enums','DateUtil',function ($scope, $http,enums,DateUtil) {
         $scope.selectOptions = {
             allowClear: false,
             language : 'zh-CN'
         };
         $scope.query=function(reset){
             if(reset){
-                $scope.searchEntity = {"page":1,"pageSize":10,"region":1000000000000}
+                $scope.searchEntity = {"page":1,"pageSize":10}
             }
             $http({
                 method: 'POST',
-                url: "eep/user/list/area",
+                url: "eep/common/law/list",
                 data:$scope.searchEntity
             }).success(function(data) {
                 console.log(data);
@@ -45,38 +45,6 @@ define(function (require) {
         $scope.refresh = function () {
             $scope.query(true);
         };
-        $scope.add  = function () {
-            $scope.index = openDomLayer("新增用户","user");
-            $scope.user = {};
-            $scope.isAdd = true;
-        };
-        $scope.edit  = function (item) {
-            $scope.index = openDomLayer("编辑用户","user");
-            $scope.user = {};
-            for(var index in item)
-                $scope.user[index] = item[index];
-            $scope.isAdd = false;
-        };
-        $scope.delete = function () {
-            layer.confirm("确认删除该条记录吗？",function () {
-                
-            })  
-        };
-        $scope.submit = function () {
-            $http({
-                method: 'POST',
-                url: $scope.isAdd?"eep/user/create":"eep/user/modify",
-                data:$scope.user
-            }).success(function(data) {
-                if(data.code === $rootScope.successCode){
-                    toastr.success("操作成功!");
-                    layer.closeAll();
-                    $("#user").hide();
-                    $scope.query();
-                }
-            });
-        };
-
 
         //分页 laypage
         $scope.initPage = function(id,count,entity) {

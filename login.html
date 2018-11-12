@@ -84,6 +84,7 @@
                         window.localStorage.setItem("t_userName", response.attach.user.nickname);
                         window.localStorage.setItem("t_uid", response.attach.user.id);
                         window.localStorage.setItem("t_apiUrl", data.field.apiUrl);
+                        window.localStorage.setItem("t_region", response.attach.user.region);
                         window.location.href = "index.html";
                     } else {
                         alert(response.code);
