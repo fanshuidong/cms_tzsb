@@ -14,28 +14,28 @@
         <!--</ul>-->
         <ul class="layui-nav layui-nav-tree"  lay-shrink="all" lay-filter="leftNav">
             <li class="layui-nav-item" ng-class="{'layui-nav-itemed':path.indexOf('/user')!=-1}">
-                <a  href="javascript:;"><i class="iconfont">&#xe607;</i><cite>用户管理</cite></a>
+                <a  href="javascript:;"><i class="iconfont">&#xe620;</i><cite>用户管理</cite></a>
                 <dl class="layui-nav-child">
                     <dd><a  data-ng-click="goto('#/user/list','用户管理','用户列表')"><span class="l-line"></span>用户列表</a></dd>
                     <dd><a  data-ng-click="goto('#/user/account','用户管理','账户列表')"><span class="l-line"></span>账户列表</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item" ng-class="{'layui-nav-itemed':path.indexOf('/useCompany')!=-1}">
-                <a class="" href="javascript:;"><i class="iconfont">&#xe607;</i><cite>使用单位</cite></a>
+                <a class="" href="javascript:;"><i class="iconfont">&#xe63e;</i><cite>使用单位</cite></a>
                 <dl class="layui-nav-child">
                     <dd><a  data-ng-click="goto('#/useCompany/list','使用单位','单位列表')"><span class="l-line"></span>单位列表</a></dd>
                     <dd><a  data-ng-click="goto('#/useCompany/listArea','使用单位','单位列表(地区)')"><span class="l-line"></span>单位列表(地区)</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item">
-                <a class="" href="javascript:;"><i class="iconfont">&#xe607;</i><cite>维保单位</cite></a>
+                <a class="" href="javascript:;"><i class="iconfont">&#xe655;</i><cite>维保单位</cite></a>
                 <dl class="layui-nav-child">
                     <dd><a  data-ng-click="goto('#/repairCompany/list','维保单位','单位列表')"><span class="l-line"></span>单位列表</a></dd>
                     <dd><a  data-ng-click="goto('#/repairCompany/listArea','维保单位','单位列表(地区)')"><span class="l-line"></span>单位列表(地区)</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item" ng-class="{'layui-nav-itemed':path.indexOf('/equipment')!=-1}">
-                <a class="" href="javascript:;"><i class="iconfont">&#xe607;</i><cite>设备管理</cite></a>
+                <a class="" href="javascript:;"><i class="iconfont">&#xe61b;</i><cite>设备管理</cite></a>
                 <dl class="layui-nav-child">
                     <dd><a  data-ng-click="goto('#/equipment/list','设备管理','设备列表')"><span class="l-line"></span>设备列表</a></dd>
                     <dd><a  data-ng-click="goto('#/equipment/listCompany','使用单位','设备列表(企业)')"><span class="l-line"></span>设备列表(企业)</a></dd>
@@ -44,7 +44,7 @@
             </li>
 
             <li class="layui-nav-item" ng-class="{'layui-nav-itemed':path.indexOf('/homework')!=-1}">
-                <a class="" href="javascript:;"><i class="iconfont">&#xe607;</i><cite>作业人员</cite></a>
+                <a class="" href="javascript:;"><i class="iconfont">&#xe660;</i><cite>作业人员</cite></a>
                 <dl class="layui-nav-child">
                     <dd><a  data-ng-click="goto('#/homework/operators','作业人员','管理员列表')"><span class="l-line"></span>管理员列表</a></dd>
                     <dd><a  data-ng-click="goto('#/homework/useCompany','作业人员','使用单位列表')"><span class="l-line"></span>使用单位列表</a></dd>
@@ -60,13 +60,12 @@
             </li>
 
             <li class="layui-nav-item" ng-class="{'layui-nav-itemed':path.indexOf('/law')!=-1}">
-                <a class="" href="javascript:;"><i class="iconfont">&#xe607;</i><cite>法律法规</cite></a>
+                <a class="" href="javascript:;"><i class="iconfont">&#xe61d;</i><cite>法律法规</cite></a>
                 <dl class="layui-nav-child">
                     <dd><a  data-ng-click="goto('#/law/categories','法律法规','类型管理')"><span class="l-line"></span>类型管理</a></dd>
                     <dd><a  data-ng-click="goto('#/law/list','法律法规','法律法规列表')"><span class="l-line"></span>法律法规列表</a></dd>
                 </dl>
             </li>
-
             <!--<li class="layui-nav-item">-->
                 <!--<a class="" href="javascript:;"><i class="layui-icon layui-icon-user"></i><cite>辖区管理</cite></a>-->
                 <!--<dl class="layui-nav-child">-->
@@ -81,4 +80,12 @@
             <!--</li>-->
         </ul>
 </div>
-
+<script>
+    //导航栏 layui样式 延迟初始化
+    layui.use(['element','form'], function(){
+        var element = layui.element;
+        var form = layui.form;
+        element.init();
+        form.render();
+    })
+</script>

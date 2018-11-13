@@ -1,12 +1,3 @@
-//导航栏 layui样式 延迟初始化
-setTimeout(function () {
-    layui.use(['element','form'], function(){
-        var element = layui.element;
-        var form = layui.form;
-        element.init();
-        form.render();
-    })
-},500);
 //弹窗全局配置
 layui.use("layer",function () {
     layer.config({

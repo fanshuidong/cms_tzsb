@@ -41,13 +41,15 @@ define(function (require) {
             $scope.logout = function() {
                 $http({
                     method: 'POST',
-                    url: "sem/use/logout",
+                    url: "eep/user/logout",
                     data:{}
                 }).success(function(data) {
-                    if(data.code==="code.success")
+                    if(data.code==="code.ok"){
+                        window.localStorage.removeItem("t_token");
                         window.location.href = "login.html";
+                    }
                 }).error(function(data) {
-                    window.localStorage.removeItem("h_token");
+                    window.localStorage.removeItem("t_token");
                     window.location.href = "login.html";
                 });
             };
@@ -146,6 +148,7 @@ define(function (require) {
     }]);
 
     app.config(['$stateProvider', '$urlRouterProvider',function ($stateProvider, $urlRouterProvider) {
+        $urlRouterProvider.otherwise('index');
         $stateProvider
             .state("index", {
             	url: "/index",
