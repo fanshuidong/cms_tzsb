@@ -13,11 +13,11 @@ define(function (require) {
         };
         $scope.query=function(reset){
             if(reset){
-                $scope.searchEntity = {"page":1,"pageSize":10,"region":1000000000000}
+                $scope.searchEntity = {"page":1,"pageSize":10}
             }
             $http({
                 method: 'POST',
-                url: "eep/user/list/area",
+                url: "eep/user/list",
                 data:$scope.searchEntity
             }).success(function(data) {
                 console.log(data);
