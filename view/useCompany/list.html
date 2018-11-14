@@ -52,25 +52,27 @@
                     <table class="layui-table" lay-skin="line">
                         <thead>
                         <tr>
-                            <th>企业编号</th>
+                            <!--<th>企业编号</th>-->
                             <th>名字</th>
                             <th>详细地址</th>
                             <th>企业性质</th>
                             <th>法人姓名</th>
                             <th>法人手机号</th>
                             <th>法人证件号</th>
+                            <td>状态</td>
                             <!--<th>操作</th>-->
                         </tr>
                         </thead>
                         <tbody>
                         <tr ng-repeat="item in list">
-                            <td>{{item.id}}</td>
+                            <!--<td>{{item.id}}</td>-->
                             <td>{{item.name}}</td>
                             <td>{{item.address}}</td>
                             <td>{{item.attr}}</td>
                             <td>{{item.legalPersonName}}</td>
                             <td>{{item.legalPersonMobile}}</td>
                             <td>{{item.legalPersonIdentity}}</td>
+                            <td ng-bind-html="item.warnLevel | enumFilter:'warnLevel'"></td>
                             <!--<td>-->
                                 <!--<a class="layui-btn layui-btn-normal layui-btn-xs" data-ng-click="edit(item)">-->
                                     <!--<i class="layui-icon layui-icon-edit"></i>编辑</a>-->

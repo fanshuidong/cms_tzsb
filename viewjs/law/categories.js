@@ -62,8 +62,8 @@ define(function (require) {
             layer.confirm("确认删除该条记录吗？",function () {
                 $http({
                     method: 'POST',
-                    url: "eep/device/category/delete",
-                    data:{id:item.code}
+                    url: "eep/common/law/category/delete",
+                    data:{id:item.id}
                 }).success(function(data) {
                     if(data.code === $rootScope.successCode){
                         toastr.success("操作成功!");
@@ -77,7 +77,7 @@ define(function (require) {
         $scope.submit = function () {
             $http({
                 method: 'POST',
-                url: $scope.isAdd?"eep/device/category/create":"eep/device/category/modify",
+                url: $scope.isAdd?"eep/common/law/category/create":"eep/common/law/category/modify",
                 data:$scope.equipmentType
             }).success(function(data) {
                 if(data.code === $rootScope.successCode){

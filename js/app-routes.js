@@ -386,7 +386,7 @@ define(function (require) {
         this.hasan = {
             zxlUrl:"http://192.168.50.147/",
             fsdUrl:"http://localhost:8089/",
-            online:"http://121.196.193.96/"
+            online:"http://183.246.75.54:60080/"
         };
     });
     //定义枚举实体
@@ -422,11 +422,20 @@ define(function (require) {
             {value:"MOBILE",text:"手机用户",mark:1},
             {value:"EMAIL",text:"邮箱用户",mark:1}
         ];
+        //单位状态
+        this.warnLevel = [
+            {value:"GREEN",text:"绿灯",mark:1,color:"green"},
+            {value:"YELLOW",text:"黄灯",mark:2,color:"yellow"},
+            {value:"BLUE",text:"蓝灯",mark:3,color:"blue"},
+            {value:"RED",text:"红灯",mark:4,color:"red"}
+        ]
+
         this.enumConfig = {
             os:this.os,
             client:this.client,
             deviceType:this.deviceType,
             timeUnit:this.timeUnit,
+            warnLevel:this.warnLevel,
             accountType:this.accountType
         };
         this.cuisineType = [

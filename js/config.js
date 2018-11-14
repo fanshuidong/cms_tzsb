@@ -31,7 +31,7 @@ define(function (require) {
                 return $q.reject(config);
             },
             response : function(response){
-                if(response.data.code === 'code.user.invalid.token'){
+                if(response.data.code === 'code.token.invalid'){
                     window.localStorage.removeItem("t_token");
                     window.location.href = "login.html";
                 }

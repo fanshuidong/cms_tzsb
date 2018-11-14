@@ -33,13 +33,25 @@
                         <thead>
                         <tr>
                             <th>设备编号</th>
-                            <th>名字</th>
+                            <th>设备名字</th>
+                            <th>出厂码</th>
+                            <th>使用单位名称</th>
+                            <th>设备级别</th>
+                            <th>设备型号</th>
+                            <th>设备地址</th>
+                            <th>使用状态</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr ng-repeat="item in list">
                             <td>{{item.id}}</td>
                             <td>{{item.name}}</td>
+                            <td>{{item.din}}</td>
+                            <td>{{item.cname}}</td>
+                            <td>{{item.level}}</td>
+                            <td>{{item.model}}</td>
+                            <td>{{item.address}}</td>
+                            <td>{{item.useState}}</td>
                         </tr>
                         </tbody>
                     </table>
