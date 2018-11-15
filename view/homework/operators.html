@@ -3,19 +3,10 @@
         <div class="layui-col-md12">
             <div class="layui-card">
                 <!--search-->
-                <div class="layui-form layui-card-header" style="padding:15px 0;height: auto">
+                <div class="layui-form layui-card-header" style="padding:15px 0;margin-left: 20px">
                     <div class="layui-form-item">
                         <div class="layui-inline">
-                            <label class="layui-form-label">人员编号</label>
-                            <div class="layui-input-block">
-                                <input type="text" class="layui-input" placeholder="作业人员编号" ng-model="searchEntity.id">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">单位编号</label>
-                            <div class="layui-input-block">
-                                <input type="text" class="layui-input" placeholder="使用单位编号" ng-model="searchEntity.cid">
-                            </div>
+                            <input type="text" class="layui-input" placeholder="作业人员名字" ng-model="searchEntity.name">
                         </div>
                         <div class="layui-inline">
                             <button class="layui-btn" ng-click="search()"><i class="layui-icon layui-icon-search"></i></button>
@@ -32,8 +23,8 @@
                     <table class="layui-table" lay-skin="line">
                         <thead>
                         <tr>
-                            <th>作业人员编号</th>
-                            <th>使用单位编号</th>
+                            <!--<th>作业人员编号</th>-->
+                            <!--<th>使用单位编号</th>-->
                             <th>作业人员名字</th>
                             <th>电话</th>
                             <th>手机</th>
@@ -46,8 +37,8 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="item in list">
-                            <td>{{item.id}}</td>
-                            <td>{{item.cid}}</td>
+                            <!--<td>{{item.id}}</td>-->
+                            <!--<td>{{item.cid}}</td>-->
                             <td>{{item.name}}</td>
                             <td>{{item.phone}}</td>
                             <td>{{item.mobile}}</td>
@@ -55,7 +46,7 @@
                             <td>{{item.identity}}</td>
                             <td>{{item.birthday}}</td>
                             <td>{{item.education}}</td>
-                            <td>{{item.cerExpire}}</td>
+                            <td>{{item.cerExpire | timeFilter}}</td>
                         </tr>
                         </tbody>
                     </table>

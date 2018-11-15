@@ -6,6 +6,7 @@ define(function (require) {
     require('ui-table');
     var toastr =require('toastr');
     app.useModule("ui.table");
+    require('multiselect');
     app.controller('userListCtrl', ['$scope','$http','enums','DateUtil','$rootScope',function ($scope, $http,enums,DateUtil,$rootScope) {
         $scope.selectOptions = {
             allowClear: false,
@@ -77,6 +78,69 @@ define(function (require) {
             });
         };
 
+        //角色授权
+        $scope.auth  = function (item) {
+            $scope.index = openDomLayer("角色授权","auth",['700px','300px']);
+            $scope.userAuthInit(item.id);
+            $('#multiselect1').multiselect({
+                keepRenderingSort: true,
+                afterMoveToRight:function ($left, $right, $options) {
+                    $scope.auth_($right);
+                },
+                afterMoveToLeft:function ($left, $right, $options) {
+                    $scope.auth_($right);
+                }
+            });
+            layui.form.render();
+        };
+        /***********multiselect 模块开始************/
+        var sid="";
+        $scope.userAuthInit = function(uid) {
+            sid = uid;
+            $http({
+                method: 'POST',
+                url: "eep/authority/role/list",
+                data:{}
+            }).success(function (data) {
+                $scope.leftList=data.attach;
+            });
+            $http({
+                method: 'POST',
+                url: "eep/authority/role/user/list",
+                data:{id:uid}
+            }).success(function (data) {
+                $scope.rightList=data.attach;
+                for(var i=0;i<$scope.leftList.length;i++){
+                    for(var j=0;j<$scope.rightList.length;j++){
+                        if($scope.rightList[j].id === $scope.leftList[i].id){
+                            $scope.leftList.splice(i,1);
+                            i--;
+                            break;
+                        }
+                    }
+                }
+            });
+        };
+
+        //分配权限
+        $scope.auth_ = function ($right) {
+            var tid = [];
+            for(var i = 0;i<$right[0].children.length;i++){
+                tid.push(Number($right[0].children[i].value));
+            }
+            $http({
+                method: 'POST',
+                async:false,
+                url: "eep/authority/auth/role",
+                data:{sid:sid,tid:tid}
+            }).success(function (data) {
+            });
+        };
+
+        //分配单位
+        $scope.allocation  = function (item) {
+            $scope.index = openDomLayer("分配单位","allocation");
+        };
 
         //分页 laypage
         $scope.initPage = function(id,count,entity) {

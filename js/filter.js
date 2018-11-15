@@ -39,4 +39,11 @@ define(function(require) {
             return (h<10?("0"+h):h)+":"+(m<10?("0"+m):m)+":00";
         }
     })
+
+    //截取字符串长度最多20
+    app.filter("subString",function () {
+        return function(string,number){
+            return string.length<=number?string:string.substring(0,number)+"...";
+        }
+    })
 });

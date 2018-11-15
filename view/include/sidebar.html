@@ -1,90 +1,73 @@
 <div class="main-layout-side">
         <div class="m-logo">
         </div>
-        <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+        <ul class="layui-nav layui-nav-tree"  lay-shrink="all" lay-filter="leftNav">
+            <li class="layui-nav-item" ng-repeat="item in parentResourceList track by $index" ng-class="{'layui-nav-itemed':path.indexOf('/{{item.url}}')!=-1}">
+                <a class="" href="javascript:;"><i class="iconfont" ng-bind-html="item.icon"></i><cite>{{item.name}}</cite></a>
+                <dl class="layui-nav-child">
+                    <dd ng-repeat="child in resourceMapping['/'+item.url] " ng-class="{'layui-this':path.indexOf('/{{item.url}}/{{child.url}}')!=-1}">
+                        <a ng-click="goto('#/'+item.url+'/'+child.url,item.name,child.name)" id="/{{item.url}}/{{child.url}}">
+                            <span class="l-line"></span>{{child.name}}
+                        </a>
+                    </dd>
+                </dl>
+            </li>
+        </ul>
         <!--<ul class="layui-nav layui-nav-tree"  lay-shrink="all" lay-filter="leftNav">-->
-            <!--<li class="layui-nav-item" ng-repeat="item in parentResourceList track by $index" ng-class="{'layui-nav-itemed':$index==0}">-->
-                <!--<a class="" href="javascript:;">{{item.name}}</a>-->
+            <!--<li class="layui-nav-item" ng-class="{'layui-nav-itemed':path.indexOf('/user')!=-1}">-->
+                <!--<a  href="javascript:;"><i class="iconfont">&#xe620;</i><cite>用户管理</cite></a>-->
                 <!--<dl class="layui-nav-child">-->
-                    <!--<dd ng-repeat="child in resourceMapping['/'+item.url] " ng-class="{'layui-this':path.indexOf('/{{item.url}}/{{child.url}}')!=-1}">-->
-                        <!--<a  ng-href="#/{{item.url}}/{{child.url}}" id="/{{item.url}}/{{child.url}}">{{child.name}}</a>-->
-                    <!--</dd>-->
+                    <!--<dd><a  data-ng-click="goto('#/user/list','用户管理','用户列表')"><span class="l-line"></span>用户列表</a></dd>-->
+                <!--</dl>-->
+            <!--</li>-->
+            <!--<li class="layui-nav-item" ng-class="{'layui-nav-itemed':path.indexOf('/useCompany')!=-1}">-->
+                <!--<a class="" href="javascript:;"><i class="iconfont">&#xe63e;</i><cite>使用单位</cite></a>-->
+                <!--<dl class="layui-nav-child">-->
+                    <!--<dd><a  data-ng-click="goto('#/useCompany/list','使用单位','单位列表')"><span class="l-line"></span>单位列表</a></dd>-->
+                    <!--&lt;!&ndash;<dd><a  data-ng-click="goto('#/useCompany/listArea','使用单位','单位列表(地区)')"><span class="l-line"></span>单位列表(地区)</a></dd>&ndash;&gt;-->
+                <!--</dl>-->
+            <!--</li>-->
+            <!--<li class="layui-nav-item" ng-class="{'layui-nav-itemed':path.indexOf('/repairCompany')!=-1}">-->
+                <!--<a class="" href="javascript:;"><i class="iconfont">&#xe655;</i><cite>维保单位</cite></a>-->
+                <!--<dl class="layui-nav-child">-->
+                    <!--<dd><a  data-ng-click="goto('#/repairCompany/list','维保单位','单位列表')"><span class="l-line"></span>单位列表</a></dd>-->
+                    <!--&lt;!&ndash;<dd><a  data-ng-click="goto('#/repairCompany/listArea','维保单位','单位列表(地区)')"><span class="l-line"></span>单位列表(地区)</a></dd>&ndash;&gt;-->
+                <!--</dl>-->
+            <!--</li>-->
+            <!--<li class="layui-nav-item" ng-class="{'layui-nav-itemed':path.indexOf('/equipment')!=-1}">-->
+                <!--<a class="" href="javascript:;"><i class="iconfont">&#xe61b;</i><cite>设备管理</cite></a>-->
+                <!--<dl class="layui-nav-child">-->
+                    <!--<dd><a  data-ng-click="goto('#/equipment/list','设备管理','设备列表')"><span class="l-line"></span>设备列表</a></dd>-->
+                    <!--&lt;!&ndash;<dd><a  data-ng-click="goto('#/equipment/listCompany','使用单位','设备列表(企业)')"><span class="l-line"></span>设备列表(企业)</a></dd>&ndash;&gt;-->
+                    <!--<dd><a  data-ng-click="goto('#/equipment/equipmentType','使用单位','设备类型')"><span class="l-line"></span>设备类型</a></dd>-->
+                <!--</dl>-->
+            <!--</li>-->
+
+            <!--<li class="layui-nav-item" ng-class="{'layui-nav-itemed':path.indexOf('/homework')!=-1}">-->
+                <!--<a class="" href="javascript:;"><i class="iconfont">&#xe660;</i><cite>作业人员</cite></a>-->
+                <!--<dl class="layui-nav-child">-->
+                    <!--<dd><a  data-ng-click="goto('#/homework/operators','作业人员','作业人员列表')" title="作业人员列表"><span class="l-line"></span>作业人员列表</a></dd>-->
+                    <!--<dd><a  data-ng-click="goto('#/homework/certs','作业人员','资质列表')"><span class="l-line"></span>资质列表</a></dd>-->
+                <!--</dl>-->
+            <!--</li>-->
+
+            <!--<li class="layui-nav-item" ng-class="{'layui-nav-itemed':path.indexOf('/law')!=-1}">-->
+                <!--<a class="" href="javascript:;"><i class="iconfont">&#xe61d;</i><cite>法律法规</cite></a>-->
+                <!--<dl class="layui-nav-child">-->
+                    <!--<dd><a  data-ng-click="goto('#/law/categories','法律法规','类型管理')"><span class="l-line"></span>类型管理</a></dd>-->
+                    <!--<dd><a  data-ng-click="goto('#/law/list','法律法规','法律法规列表')"><span class="l-line"></span>法律法规列表</a></dd>-->
                 <!--</dl>-->
             <!--</li>-->
         <!--</ul>-->
-        <ul class="layui-nav layui-nav-tree"  lay-shrink="all" lay-filter="leftNav">
-            <li class="layui-nav-item" ng-class="{'layui-nav-itemed':path.indexOf('/user')!=-1}">
-                <a  href="javascript:;"><i class="iconfont">&#xe620;</i><cite>用户管理</cite></a>
-                <dl class="layui-nav-child">
-                    <dd><a  data-ng-click="goto('#/user/list','用户管理','用户列表')"><span class="l-line"></span>用户列表</a></dd>
-                </dl>
-            </li>
-            <li class="layui-nav-item" ng-class="{'layui-nav-itemed':path.indexOf('/useCompany')!=-1}">
-                <a class="" href="javascript:;"><i class="iconfont">&#xe63e;</i><cite>使用单位</cite></a>
-                <dl class="layui-nav-child">
-                    <dd><a  data-ng-click="goto('#/useCompany/list','使用单位','单位列表')"><span class="l-line"></span>单位列表</a></dd>
-                    <!--<dd><a  data-ng-click="goto('#/useCompany/listArea','使用单位','单位列表(地区)')"><span class="l-line"></span>单位列表(地区)</a></dd>-->
-                </dl>
-            </li>
-            <li class="layui-nav-item">
-                <a class="" href="javascript:;"><i class="iconfont">&#xe655;</i><cite>维保单位</cite></a>
-                <dl class="layui-nav-child">
-                    <dd><a  data-ng-click="goto('#/repairCompany/list','维保单位','单位列表')"><span class="l-line"></span>单位列表</a></dd>
-                    <!--<dd><a  data-ng-click="goto('#/repairCompany/listArea','维保单位','单位列表(地区)')"><span class="l-line"></span>单位列表(地区)</a></dd>-->
-                </dl>
-            </li>
-            <li class="layui-nav-item" ng-class="{'layui-nav-itemed':path.indexOf('/equipment')!=-1}">
-                <a class="" href="javascript:;"><i class="iconfont">&#xe61b;</i><cite>设备管理</cite></a>
-                <dl class="layui-nav-child">
-                    <dd><a  data-ng-click="goto('#/equipment/list','设备管理','设备列表')"><span class="l-line"></span>设备列表</a></dd>
-                    <!--<dd><a  data-ng-click="goto('#/equipment/listCompany','使用单位','设备列表(企业)')"><span class="l-line"></span>设备列表(企业)</a></dd>-->
-                    <dd><a  data-ng-click="goto('#/equipment/equipmentType','使用单位','设备类型')"><span class="l-line"></span>设备类型</a></dd>
-                </dl>
-            </li>
-
-            <li class="layui-nav-item" ng-class="{'layui-nav-itemed':path.indexOf('/homework')!=-1}">
-                <a class="" href="javascript:;"><i class="iconfont">&#xe660;</i><cite>作业人员</cite></a>
-                <dl class="layui-nav-child">
-                    <dd><a  data-ng-click="goto('#/homework/operators','作业人员','作业人员列表（管理员权限）')"><span class="l-line"></span>作业人员列表（管理员权限）</a></dd>
-                    <!--<dd><a  data-ng-click="goto('#/homework/useCompany','作业人员','作业人员列表（使用单位权限）')"><span class="l-line"></span>作业人员列表（使用单位权限）</a></dd>-->
-                    <dd><a  data-ng-click="goto('#/homework/certs','作业人员','资质列表')"><span class="l-line"></span>资质列表</a></dd>
-                </dl>
-            </li>
-
-            <li class="layui-nav-item" ng-class="{'layui-nav-itemed':path.indexOf('/tenant')!=-1}">
-                <a class="" href="javascript:;"><i class="iconfont">&#xe607;</i><cite>租户管理</cite></a>
-                <dl class="layui-nav-child">
-                    <dd><a  data-ng-click="goto('#/tenant/list','租户列表','管理员列表')"><span class="l-line"></span>租户列表</a></dd>
-                </dl>
-            </li>
-
-            <li class="layui-nav-item" ng-class="{'layui-nav-itemed':path.indexOf('/law')!=-1}">
-                <a class="" href="javascript:;"><i class="iconfont">&#xe61d;</i><cite>法律法规</cite></a>
-                <dl class="layui-nav-child">
-                    <dd><a  data-ng-click="goto('#/law/categories','法律法规','类型管理')"><span class="l-line"></span>类型管理</a></dd>
-                    <dd><a  data-ng-click="goto('#/law/list','法律法规','法律法规列表')"><span class="l-line"></span>法律法规列表</a></dd>
-                </dl>
-            </li>
-            <!--<li class="layui-nav-item">-->
-                <!--<a class="" href="javascript:;"><i class="layui-icon layui-icon-user"></i><cite>辖区管理</cite></a>-->
-                <!--<dl class="layui-nav-child">-->
-                    <!--<dd><a data-ng-click="goto('#/popedom/tree','辖区管理','辖区树')">辖区树</a></dd>-->
-                <!--</dl>-->
-            <!--</li>-->
-            <!--<li class="layui-nav-item">-->
-                <!--<a class="" href="javascript:;"><i class="layui-icon layui-icon-user"></i><cite>系统管理</cite></a>-->
-                <!--<dl class="layui-nav-child">-->
-                    <!--<dd><a  ng-href="#/system/districts">行政区划配置</a></dd>-->
-                <!--</dl>-->
-            <!--</li>-->
-        </ul>
 </div>
 <script>
     //导航栏 layui样式 延迟初始化
-    layui.use(['element','form'], function(){
-        var element = layui.element;
-        var form = layui.form;
-        element.init();
-        form.render();
-    })
+    setTimeout(function () {
+        layui.use(['element','form'], function(){
+            var element = layui.element;
+            var form = layui.form;
+            element.init();
+            form.render();
+        })
+    },500);
 </script>

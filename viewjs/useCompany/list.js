@@ -11,6 +11,7 @@ define(function (require) {
             allowClear: false,
             language : 'zh-CN'
         };
+        $scope.warnLevel = enums.warnLevel;
         $scope.query=function(reset){
             if(reset){
                 $scope.searchEntity = {"page":1,"pageSize":10}

@@ -1,3 +1,6 @@
+<head>
+    <link rel="stylesheet" href="lib/global/css/bootstrap.min.css" type="text/css" />
+</head>
 <div class="layui-fluid">
     <div class="layui-row layui-col-space15">
         <div class="layui-col-md12">
@@ -66,6 +69,10 @@
                             <td>{{item.uname}}</td>
                             <td>{{item.created | timeFilter}}</td>
                             <td>
+                                <a class="layui-btn layui-btn-normal layui-btn-xs" data-ng-click="auth(item)">
+                                    <i class="layui-icon layui-icon-edit"></i>角色授权</a>
+                                <a class="layui-btn layui-btn-normal layui-btn-xs" data-ng-click="allocation(item)">
+                                    <i class="layui-icon layui-icon-edit"></i>分配单位</a>
                                 <a class="layui-btn layui-btn-normal layui-btn-xs" data-ng-click="edit(item)">
                                     <i class="layui-icon layui-icon-edit"></i>编辑</a>
                                 <a class="layui-btn layui-btn-danger layui-btn-xs" data-ng-click="delete(item)">
@@ -82,7 +89,6 @@
 </div>
 <!--编辑用户页面-->
 <form class="layui-form" id="user" ng-submit="submit()" style="padding: 20px 30px 0 0;display: none">
-
     <div class="layui-form-item">
         <label class="layui-form-label">用户名</label>
         <div class="layui-input-inline">
@@ -109,3 +115,24 @@
     </div>
 </form>
 
+<!--角色授权页面-->
+<div id="auth" style="padding: 20px 30px 0 0;display: none;margin-left: 20px">
+    <div class="row">
+        <div class="col-xs-5">
+            <select name="from[]" id="multiselect1"  class="form-control" size="8" multiple="multiple">
+                <option  ng-repeat="item in leftList" value="{{item.id}}">{{item.name}}</option>
+            </select>
+        </div>
+        <div class="col-xs-2">
+            <button type="button" id="multiselect1_rightAll" class="btn btn-block"><i class="glyphicon glyphicon-forward"></i></button>
+            <button type="button" id="multiselect1_rightSelected" class="btn btn-block"><i class="glyphicon glyphicon-chevron-right"></i></button>
+            <button type="button" id="multiselect1_leftSelected" class="btn btn-block"><i class="glyphicon glyphicon-chevron-left"></i></button>
+            <button type="button" id="multiselect1_leftAll" class="btn btn-block"><i class="glyphicon glyphicon-backward"></i></button>
+        </div>
+        <div class="col-xs-5">
+            <select name="to[]" id="multiselect1_to" class="form-control" size="8" multiple="multiple">
+                <option  ng-repeat="item in rightList" value="{{item.id}}">{{item.name}}</option>
+            </select>
+        </div>
+    </div>
+</div>

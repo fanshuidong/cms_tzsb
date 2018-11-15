@@ -33,6 +33,13 @@ define(function (require) {
             }).success(function(data) {
                 console.log(data);
                 $scope.list = data.attach.list;
+                for(var i=0;i<$scope.list.length;i++){
+                    for(var index in $scope.lawCategories){
+                        if($scope.lawCategories[index].id === $scope.list[i].categoryId){
+                            $scope.list[i].categoryName = $scope.lawCategories[index].name;
+                        }
+                    }
+                }
                 $scope.initPage("page",data.attach.total,$scope.searchEntity);
             });
         };

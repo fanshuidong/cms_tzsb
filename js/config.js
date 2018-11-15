@@ -24,6 +24,7 @@ define(function (require) {
                     }, 500);
                     config.url = Url.hasan[window.localStorage.getItem("t_apiUrl")]+config.url;
                 }
+                //加载时间超过8秒取消加载
                 return config;
             },
             requestError:function(config){

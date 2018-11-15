@@ -17,7 +17,7 @@ define(function (require) {
             }
             $http({
                 method: 'POST',
-                url: "eep/company/operators",
+                url: "eep/company/operator/list",
                 data:$scope.searchEntity
             }).success(function(data) {
                 console.log(data);

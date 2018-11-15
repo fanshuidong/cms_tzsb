@@ -103,38 +103,39 @@ define(function (require) {
             window.location.href = href;
         };
 
-        // $scope.parentResourceList = [];
-        // $rootScope.resourceMapping = {};
-        // $http({
-        //     method: 'POST',
-        //     url: "hasan/authority/modular/list/user",
-        //     data:{}
-        // }).success(function(data) {
-        //     for(var i=0;i<data.attach.length;i++){
-        //         if(data.attach[i].parent === 0){
-        //             $scope.childrenResourceList = [];
-        //             for(var j=0;j<data.attach.length;j++){
-        //                 if(data.attach[j].parent === data.attach[i].id){
-        //                     if(!data.attach[i].href){
-        //                         data.attach[i].href = '#/'+data.attach[i].url +'/'+ data.attach[j].url;
-        //                     }
-        //                     if($location.path()==""){
-        //                         var path='/'+data.attach[i].url +'/'+ data.attach[j].url;
-        //                         $location.path(path);
-        //                     }
-        //                     $scope.childrenResourceList.push(data.attach[j]);
-        //                 }
-        //             }
-        //             if($scope.childrenResourceList.length>0)
-        //                 $scope.parentResourceList.push(data.attach[i]);
-        //             $rootScope.resourceMapping["/"+data.attach[i].url] =$scope.childrenResourceList;
-        //         }
-        //     }
-        //     $rootScope.path = $location.path();
-        // });
-        // $scope.setPath = function (url) {
-        //     $rootScope.path = url;
-        // };
+        $scope.parentResourceList = [];
+        $rootScope.resourceMapping = {};
+        $http({
+            method: 'POST',
+            url: "eep/authority/module/user/list",
+            data:{}
+        }).success(function(data) {
+            for(var i=0;i<data.attach.length;i++){
+                if(data.attach[i].parent === 0){
+                    $scope.childrenResourceList = [];
+                    for(var j=0;j<data.attach.length;j++){
+                        if(data.attach[j].parent === data.attach[i].id){
+                            if(!data.attach[i].href){
+                                data.attach[i].href = '#/'+data.attach[i].url +'/'+ data.attach[j].url;
+                            }
+                            if($location.path()==""){
+                                var path='/'+data.attach[i].url +'/'+ data.attach[j].url;
+                                $location.path(path);
+                            }
+                            $scope.childrenResourceList.push(data.attach[j]);
+                        }
+                    }
+                    if($scope.childrenResourceList.length>0)
+                        $scope.parentResourceList.push(data.attach[i]);
+                    $rootScope.resourceMapping["/"+data.attach[i].url] =$scope.childrenResourceList;
+                }
+            }
+            $rootScope.path = $location.path();
+        });
+        $scope.setPath = function (url) {
+            $rootScope.path = url;
+        };
+        //$scope.$apply();
     }]);
     app.controller('SidebarController', ['$scope','$http', '$rootScope','$location',function($scope,$http,$rootScope,$location) {
         //获取子模块列表
@@ -321,65 +322,13 @@ define(function (require) {
                 controllerUrl: 'viewjs/system/roleCtrl.js',
                 controller: "roleCtrl"
             })
-            .state("system.resource", {
-                url: "/resource",
-                templateUrl: "view/system/resource.html",
-                controllerUrl: 'viewjs/system/resourceCtrl.js',
-                controller: "resourceCtrl"
+            .state("system.column", {
+                url: "/column",
+                templateUrl: "view/system/column.html",
+                controllerUrl: 'viewjs/system/columnCtrl.js',
+                controller: "columnCtrl"
             })
-            .state("system.api", {
-                url: "/api",
-                templateUrl: "view/system/api.html",
-                controllerUrl: 'viewjs/system/apiCtrl.js',
-                controller: "apiCtrl"
-            })
-            .state("system.config", {
-                url: "/config",
-                templateUrl: "view/system/config.html",
-                controllerUrl: 'viewjs/system/configCtrl.js',
-                controller: "configCtrl"
-            })
-            .state("system.member", {
-                url: "/member",
-                templateUrl: "view/system/member.html",
-                controllerUrl: 'viewjs/system/memberCtrl.js',
-                controller: "memberCtrl"
-            })
-            .state("system.districts", {
-                url: "/districts",
-                templateUrl: "view/system/districts.html",
-                controllerUrl: 'viewjs/system/districtsCtrl.js',
-                controller: "districtsCtrl"
-            })
-            .state("system.date", {
-                url: "/date",
-                templateUrl: "view/system/date.html",
-                controllerUrl: 'viewjs/system/dateCtrl.js',
-                controller: "dateCtrl"
-            })
-            .state("system.cfgResource", {
-                url: "/cfgResource",
-                templateUrl: "view/system/cfgResource.html",
-                controllerUrl: 'viewjs/system/cfgResourceCtrl.js',
-                controller: "cfgResourceCtrl"
-            })
-            .state("system.verse", {
-                url: "/verse",
-                templateUrl: "view/system/verse.html",
-                controllerUrl: 'viewjs/system/verseCtrl.js',
-                controller: "verseCtrl"
-            })
-            //账户管理
-            .state("account", {
-                url: "/account",
-                templateUrl: "view/include/module.html"
-            })
-            .state("account.list", {
-                url: "/list",
-                templateUrl: "view/account/list.html",
-                controllerUrl: 'viewjs/account/listCtrl.js',
-                controller: "listCtrl"
-            })
+
     }]);
 
     app.service("Url",function(){
