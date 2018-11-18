@@ -12,6 +12,31 @@ define(function (require) {
             allowClear: false,
             language : 'zh-CN'
         };
+        //获取辖区列表
+        // $http({
+        //     method: 'POST',
+        //     url: "eep/user/list",
+        //     data:{}
+        // }).success(function(data) {
+        //     $scope.regions = data.attach;
+        // });
+        //获取使用单位列表
+        $http({
+            method: 'POST',
+            url: "eep/company/list/use",
+            data:{page:1,pageSize:20000}
+        }).success(function(data) {
+            $scope.useCompanies = data.attach.list;
+        });
+        // //获取维保单位列表
+        $http({
+            method: 'POST',
+            url: "eep/company/list/repair",
+            data:{page:1,pageSize:20000}
+        }).success(function(data) {
+            $scope.repairCompanies = data.attach.list;
+        });
+
         $scope.query=function(reset){
             if(reset){
                 $scope.searchEntity = {"page":1,"pageSize":10}
@@ -139,8 +164,59 @@ define(function (require) {
 
         //分配单位
         $scope.allocation  = function (item) {
-            $scope.index = openDomLayer("分配单位","allocation");
+            $scope.index = openDomLayer("分配单位","allocation",['700px','550px']);
+            $scope.obj = {uid:item.id};
+            layui.use(['form','jquery'],function () {
+                var form = layui.form,$ = layui.jquery;
+                form.on('select(type)', function(data){
+                    switch(data.value){
+                        case "region":
+                            $("#region").show();
+                            $("#use").hide();
+                            $("#repair").hide();
+                            break;
+                        case "use":
+                            $("#use").show();
+                            $("#region").hide();
+                            $("#repair").hide();
+                            break;
+                        case "repair":
+                            $("#repair").show();
+                            $("#region").hide();
+                            $("#use").hide();
+                            break;
+                    }
+                    $scope.obj.type = data.value;
+                });
+                form.render();
+            })
         };
+        //分配提交
+        $scope.allocationSubmit = function(){
+            switch($scope.obj.type){
+                case "region":
+                    $scope.obj.cid = $("#region").val();
+                    break;
+                case "use":
+                    $scope.obj.cid = $("#useCompany").val();
+                    break;
+                case "repair":
+                    $scope.obj.cid = $("#repairCompany").val();
+                    break;
+            }
+            $http({
+                method: 'POST',
+                url: "eep/company/employee/create",
+                data:$scope.obj
+            }).success(function(data) {
+                if(data.code === $rootScope.successCode){
+                    toastr.success("操作成功!");
+                    layer.closeAll();
+                    $("#allocation").hide();
+                    $scope.query();
+                }
+            });
+        }
 
         //分页 laypage
         $scope.initPage = function(id,count,entity) {

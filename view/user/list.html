@@ -136,3 +136,47 @@
         </div>
     </div>
 </div>
+
+<!--客户端角色分配-->
+<form class="layui-form" id="allocation" ng-submit="allocationSubmit()" style="padding: 20px 30px 0 0;display: none">
+    <div class="layui-form-item">
+        <label class="layui-form-label">类型</label>
+        <div class="layui-input-block">
+            <select name="" id="type" required lay-filter="type">
+                <option value=""></option>
+                <!--<option value="region">辖区</option>-->
+                <option value="use">使用单位</option>
+                <option value="repair">维保单位</option>
+            </select>
+        </div>
+    </div>
+    <!--<div class="layui-form-item" id="region" style="display: none">-->
+        <!--<label class="layui-form-label">辖区</label>-->
+        <!--<div class="layui-input-block">-->
+            <!--<select name=""  required>-->
+                <!--<option data-ng-repeat="item in regions" value="{{item.id}}">{{item.name}}</option>-->
+            <!--</select>-->
+        <!--</div>-->
+    <!--</div>-->
+    <div class="layui-form-item" id="use" style="display: none">
+        <label class="layui-form-label">使用单位</label>
+        <div class="layui-input-block">
+        <select name="" lay-search id="useCompany">
+            <option data-ng-repeat="item in useCompanies" value="{{item.id}}">{{item.name}}</option>
+        </select>
+        </div>
+    </div>
+    <div class="layui-form-item" id="repair" style="display: none">
+        <label class="layui-form-label">维保单位</label>
+        <div class="layui-input-block">
+        <select name="" lay-search id="repairCompany">
+            <option data-ng-repeat="item in repairCompanies" value="{{item.id}}">{{item.name}}</option>
+        </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block" style="text-align: right;padding-top: 20px">
+            <button class="layui-btn" lay-submit>确认提交</button>
+        </div>
+    </div>
+</form>
