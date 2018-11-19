@@ -3,12 +3,10 @@
         </div>
         <ul class="layui-nav layui-nav-tree"  lay-shrink="all" lay-filter="leftNav">
             <li class="layui-nav-item" ng-repeat="item in parentResourceList track by $index" ng-class="{'layui-nav-itemed':path.indexOf('/{{item.url}}')!=-1}">
-                <a class="" href="javascript:;"><i class="iconfont" ng-bind-html="item.icon"></i><cite>{{item.name}}</cite></a>
+                <a class="" href="javascript:;"><i class="iconfont" ng-bind-html="item.css"></i><cite>{{item.name}}</cite></a>
                 <dl class="layui-nav-child">
                     <dd ng-repeat="child in resourceMapping['/'+item.url] " ng-class="{'layui-this':path.indexOf('/{{item.url}}/{{child.url}}')!=-1}">
-                        <a ng-click="goto('#/'+item.url+'/'+child.url,item.name,child.name)" id="/{{item.url}}/{{child.url}}">
-                            <span class="l-line"></span>{{child.name}}
-                        </a>
+                        <a ng-click="goto('#/'+item.url+'/'+child.url,item.name,child.name)" id="/{{item.url}}/{{child.url}}"><span class="l-line"></span>{{child.name}}</a>
                     </dd>
                 </dl>
             </li>
@@ -69,5 +67,5 @@
             element.init();
             form.render();
         })
-    },500);
+    },1000);
 </script>

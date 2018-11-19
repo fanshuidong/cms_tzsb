@@ -15,6 +15,31 @@ define(function (require) {
         $rootScope.region = window.localStorage.getItem("t_region");
         $rootScope.defaultPageSize = 10;
         $rootScope.successCode = "code.ok";
+        //获取辖区列表
+        $http({
+            method: 'POST',
+            url: "eep/user/privilleges",
+            data:{regionChain:true}
+        }).success(function(data) {
+            console.log(data.attach.regions);
+            $rootScope.regions = data.attach.regions;
+        });
+        //获取使用单位列表
+        $http({
+            method: 'POST',
+            url: "eep/company/list/use",
+            data:{page:1,pageSize:20000}
+        }).success(function(data) {
+            $rootScope.useCompanies = data.attach.list;
+        });
+        //获取维保单位列表
+        $http({
+            method: 'POST',
+            url: "eep/company/list/repair",
+            data:{page:1,pageSize:20000}
+        }).success(function(data) {
+            $rootScope.repairCompanies = data.attach.list;
+        });
     }]);
     app.controller('AppController', ['$scope','$rootScope', '$http','enums',function($scope,$rootScope,$http,enums) {
         //获取后台系统配置
@@ -284,22 +309,38 @@ define(function (require) {
                 controller: "lawListCtrl"
             })
             //自查自纠
-            // .state("introspect", {
-            //     url: "/introspect",
-            //     templateUrl: "view/include/module.html"
-            // })
-            // .state("introspect.list", {
-            //     url: "/list",
-            //     templateUrl: "view/introspect/list.html",
-            //     controllerUrl: 'viewjs/introspect/list.js',
-            //     controller: "introspectCtrl"
-            // })
-            // .state("introspect.list", {
-            //     url: "/list",
-            //     templateUrl: "view/introspect/list.html",
-            //     controllerUrl: 'viewjs/introspect/list.js',
-            //     controller: "introspectCtrl"
-            // })
+            .state("introspect", {
+                url: "/introspect",
+                templateUrl: "view/include/module.html"
+            })
+            .state("introspect.list", {
+                url: "/list",
+                templateUrl: "view/introspect/list.html",
+                controllerUrl: 'viewjs/introspect/list.js',
+                controller: "introspectCtrl"
+            })
+            //检查记录
+            .state("inspects", {
+                url: "/inspects",
+                templateUrl: "view/include/module.html"
+            })
+            .state("inspects.list", {
+                url: "/list",
+                templateUrl: "view/inspects/list.html",
+                controllerUrl: 'viewjs/inspects/list.js',
+                controller: "inspectsCtrl"
+            })
+            //监察指令
+            .state("notice", {
+                url: "/notice",
+                templateUrl: "view/include/module.html"
+            })
+            .state("notice.list", {
+                url: "/list",
+                templateUrl: "view/notice/list.html",
+                controllerUrl: 'viewjs/notice/list.js',
+                controller: "noticeListCtrl"
+            })
             //辖区管理
             .state("popedom", {
                 url: "/popedom",
@@ -333,7 +374,7 @@ define(function (require) {
 
     app.service("Url",function(){
         this.hasan = {
-            zxlUrl:"http://192.168.50.147/",
+            zxlUrl:"http://192.168.50.19/",
             fsdUrl:"http://localhost:8089/",
             online:"http://183.246.75.54:60080/"
         };

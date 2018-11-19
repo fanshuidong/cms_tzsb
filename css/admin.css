@@ -2161,3 +2161,10 @@ input:-webkit-autofill:focus {
     margin-left: 80px;
   }
 }
+
+.layui-form-label{
+  width: 110px;
+}
+.layui-input-block{
+  margin-left: 140px;
+}

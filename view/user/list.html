@@ -72,11 +72,9 @@
                                 <a class="layui-btn layui-btn-normal layui-btn-xs" data-ng-click="auth(item)">
                                     <i class="layui-icon layui-icon-edit"></i>角色授权</a>
                                 <a class="layui-btn layui-btn-normal layui-btn-xs" data-ng-click="allocation(item)">
-                                    <i class="layui-icon layui-icon-edit"></i>分配单位</a>
+                                    <i class="layui-icon layui-icon-edit"></i>分配辖区或单位</a>
                                 <a class="layui-btn layui-btn-normal layui-btn-xs" data-ng-click="edit(item)">
                                     <i class="layui-icon layui-icon-edit"></i>编辑</a>
-                                <a class="layui-btn layui-btn-danger layui-btn-xs" data-ng-click="delete(item)">
-                                    <i class="layui-icon layui-icon-delete"></i>删除</a>
                             </td>
                         </tr>
                         </tbody>
@@ -144,20 +142,21 @@
         <div class="layui-input-block">
             <select name="" id="type" required lay-filter="type">
                 <option value=""></option>
-                <!--<option value="region">辖区</option>-->
+                <option value="region">辖区</option>
                 <option value="use">使用单位</option>
                 <option value="repair">维保单位</option>
             </select>
         </div>
     </div>
-    <!--<div class="layui-form-item" id="region" style="display: none">-->
-        <!--<label class="layui-form-label">辖区</label>-->
-        <!--<div class="layui-input-block">-->
-            <!--<select name=""  required>-->
-                <!--<option data-ng-repeat="item in regions" value="{{item.id}}">{{item.name}}</option>-->
-            <!--</select>-->
-        <!--</div>-->
-    <!--</div>-->
+    <div class="layui-form-item" id="region" style="display: none">
+        <label class="layui-form-label">辖区</label>
+        <div class="layui-input-block">
+            <select name="" lay-search  id="region_">
+                <option  value=""></option>
+                <option data-ng-repeat="item in regions" value="{{item.id}}"  ng-disabled="!item.open || !item.own">{{item.name}}</option>
+            </select>
+        </div>
+    </div>
     <div class="layui-form-item" id="use" style="display: none">
         <label class="layui-form-label">使用单位</label>
         <div class="layui-input-block">

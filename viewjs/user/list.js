@@ -12,31 +12,6 @@ define(function (require) {
             allowClear: false,
             language : 'zh-CN'
         };
-        //获取辖区列表
-        // $http({
-        //     method: 'POST',
-        //     url: "eep/user/list",
-        //     data:{}
-        // }).success(function(data) {
-        //     $scope.regions = data.attach;
-        // });
-        //获取使用单位列表
-        $http({
-            method: 'POST',
-            url: "eep/company/list/use",
-            data:{page:1,pageSize:20000}
-        }).success(function(data) {
-            $scope.useCompanies = data.attach.list;
-        });
-        // //获取维保单位列表
-        $http({
-            method: 'POST',
-            url: "eep/company/list/repair",
-            data:{page:1,pageSize:20000}
-        }).success(function(data) {
-            $scope.repairCompanies = data.attach.list;
-        });
-
         $scope.query=function(reset){
             if(reset){
                 $scope.searchEntity = {"page":1,"pageSize":10}
@@ -164,8 +139,12 @@ define(function (require) {
 
         //分配单位
         $scope.allocation  = function (item) {
-            $scope.index = openDomLayer("分配单位","allocation",['700px','550px']);
+            $scope.index = openDomLayer("分配辖区或单位","allocation",['700px','550px']);
             $scope.obj = {uid:item.id};
+            $("#type").val("");
+            $("#region").hide();
+            $("#use").hide();
+            $("#repair").hide();
             layui.use(['form','jquery'],function () {
                 var form = layui.form,$ = layui.jquery;
                 form.on('select(type)', function(data){
@@ -193,20 +172,24 @@ define(function (require) {
         };
         //分配提交
         $scope.allocationSubmit = function(){
+            var url = "";
             switch($scope.obj.type){
                 case "region":
-                    $scope.obj.cid = $("#region").val();
+                    $scope.obj.region = $("#region_").val();
+                    url = "eep/region/grant";
                     break;
                 case "use":
                     $scope.obj.cid = $("#useCompany").val();
+                    url = "eep/company/employee/create";
                     break;
                 case "repair":
                     $scope.obj.cid = $("#repairCompany").val();
+                    url = "eep/company/employee/create";
                     break;
             }
             $http({
                 method: 'POST',
-                url: "eep/company/employee/create",
+                url: url,
                 data:$scope.obj
             }).success(function(data) {
                 if(data.code === $rootScope.successCode){

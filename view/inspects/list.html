@@ -1,0 +1,162 @@
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <!--search-->
+                <div class="layui-form layui-card-header" style="padding:15px 0;height: auto;margin-left: 10px">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <input type="text" class='layui-input' placeholder="使用单位" ng-model="searchEntity.cname">
+                        </div>
+                        <div class="layui-inline">
+                            <input type="text" class='layui-input' placeholder="维保单位" ng-model="searchEntity.rname">
+                        </div>
+                        <div class="layui-inline">
+                            <button class="layui-btn" ng-click="search()"><i class="layui-icon layui-icon-search"></i></button>
+                        </div>
+                        <div class="layui-inline">
+                            <button class="layui-btn" ng-click="refresh()"><i class="layui-icon layui-icon-refresh"></i></button>
+                        </div>
+                        <div class="layui-inline">
+                            <button class="layui-btn layui-btn-small layui-btn-normal" data-type="add" data-ng-click="add()">添加</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-card-body">
+                    <table class="layui-table" lay-skin="line">
+                        <thead>
+                        <tr>
+                            <th>使用单位名字</th>
+                            <th>维保单位名字</th>
+                            <th>维保时间</th>
+                            <th>下次维保时间</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in list">
+                            <td>{{item.cname}}</td>
+                            <td>{{item.rname}}</td>
+                            <td>{{item.time | timeFilter}}</td>
+                            <td>{{item.nextTime | timeFilter}}</td>
+                            <td>
+                                <a class="layui-btn layui-btn-normal layui-btn-xs" data-ng-click="detail(item)">查看详情</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div id="page"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--新增检查记录-->
+<form class="layui-form" id="inspects" ng-submit="submit()" style="padding: 20px 30px 0 0;display: none">
+    <div class="layui-form-item">
+        <label class="layui-form-label">使用单位</label>
+        <div class="layui-input-block">
+            <select name="" required lay-search id="cid">
+                <option data-ng-repeat="item in useCompanies" value="{{item.id}}">{{item.name}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">维保单位</label>
+        <div class="layui-input-block">
+            <select name="" required lay-search id="rid">
+                <option data-ng-repeat="item in repairCompanies" value="{{item.id}}">{{item.name}}</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">维保时间</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input"  id="time" data-ng-model="time" laydate laydate-type="datetime">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">下次维保时间</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input"  id="nextTime"  data-ng-model="nextTime" laydate laydate-type="datetime">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">内容</label>
+        <div class="layui-input-block">
+            <textarea  lay-verify="required" class="layui-textarea" id="content"></textarea>
+        </div>
+    </div>
+
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;margin-left: 20px">
+        <legend>图片上传</legend>
+    </fieldset>
+
+    <div class="layui-form-item" style="margin-left: 20px">
+        <ul class="imgList">
+            <li ng-repeat="image in images"><span ng-click="deleteImg(image,$index)"><img src="css/img/wrong.png"/> </span><img ng-src="{{image.url}}"/></li>
+        </ul>
+        <ul style="list-style-type:none; margin:0;display: inline-block;float: left;width: 135px" ng-show="images.length < 3">
+            <li ngf-select="addImage($file)" ngf-multiple="true" ng-model="file" name="file" ngf-max-size="20MB" style="width:140px;float: left;display:inline">
+                <img style="border:1px;cursor:pointer" src="css/img/updatepic.png" width="80" height="80"  alt/>
+            </li>
+        </ul>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block" style="  padding-top: 20px">
+            <button class="layui-btn" lay-submit>确认提交</button>
+        </div>
+    </div>
+</form>
+
+<!--检查记录详情-->
+<form class="layui-form" id="inspectDetail" ng-submit="submit()" style="padding: 20px 30px 0 0;display: none">
+    <div class="layui-form-item">
+        <label class="layui-form-label">使用单位:</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" readonly data-ng-model="inspectDetail.cname">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">维保单位:</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" readonly data-ng-model="inspectDetail.rname">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">维保时间:</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" readonly data-ng-model="inspectDetail.time">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">下次维保时间</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" readonly data-ng-model="inspectDetail.nextTime">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">内容</label>
+        <div class="layui-input-block">
+            <textarea  readonly class="layui-textarea" data-ng-model="inspectDetail.content"></textarea>
+        </div>
+    </div>
+
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;margin-left: 20px">
+        <legend>上传的图片信息</legend>
+    </fieldset>
+
+    <div class="layui-form-item" style="margin-left: 20px">
+        <ul class="imgList">
+            <li ng-repeat="image in inspectDetail.resources"><img ng-src="{{image.url}}"/></li>
+        </ul>
+    </div>
+</form>

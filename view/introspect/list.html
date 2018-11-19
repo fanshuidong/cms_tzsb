@@ -3,10 +3,13 @@
         <div class="layui-col-md12">
             <div class="layui-card">
                 <!--search-->
-                <div class="layui-form layui-card-header" style="padding:15px 0;height: auto;margin-left: 15px">
+                <div class="layui-form layui-card-header" style="padding:15px 0;height: auto">
                     <div class="layui-form-item">
                         <div class="layui-inline">
-                            <input type="text" class='layui-input' placeholder="关键字" ng-model="searchEntity.content">
+                            <label class="layui-form-label">标题</label>
+                            <div class="layui-input-block">
+                                <input type="text" class='layui-input' ng-model="searchEntity.title">
+                            </div>
                         </div>
                         <div class="layui-inline">
                             <button class="layui-btn" ng-click="search()"><i class="layui-icon layui-icon-search"></i></button>
@@ -14,26 +17,29 @@
                         <div class="layui-inline">
                             <button class="layui-btn" ng-click="refresh()"><i class="layui-icon layui-icon-refresh"></i></button>
                         </div>
-                        <div class="layui-inline">
-                            <button class="layui-btn layui-btn-small layui-btn-normal" data-type="add" data-ng-click="add()">添加</button>
-                        </div>
+                        <!--<div class="layui-inline">-->
+                            <!--<button class="layui-btn layui-btn-small layui-btn-normal" data-type="add" data-ng-click="add()">添加</button>-->
+                        <!--</div>-->
                     </div>
                 </div>
                 <div class="layui-card-body">
                     <table class="layui-table" lay-skin="line">
                         <thead>
                         <tr>
-                            <th>标题</th>
-                            <th>内容</th>
-                            <th>所属类型</th>
-                            <th>操作</th>
+                            <th>名称</th>
+                            <th>法人</th>
+                            <th>填报时间</th>
+                            <th>填报人</th>
+                            <th>填报人电话</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr ng-repeat="item in list">
-                            <td>{{item.title}}</td>
-                            <td>{{item.content | subString:20}}</td>
+                            <td>{{item.name}}</td>
                             <td>{{item.categoryName}}</td>
+                            <td>{{item.created | timeFilter}}</td>
+                            <td>{{item.filler}}</td>
+                            <td>{{item.fillerPhone}}</td>
                             <td>
                                 <a class="layui-btn layui-btn-normal layui-btn-xs" data-ng-click="edit(item)">
                                     <i class="layui-icon layui-icon-edit"></i>编辑</a>

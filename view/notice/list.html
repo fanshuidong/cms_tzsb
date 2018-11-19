@@ -1,0 +1,227 @@
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <!--search-->
+                <div class="layui-form layui-card-header" style="padding:15px 0;height: auto;margin-left: 10px">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <input type="text" class='layui-input' placeholder="使用单位" ng-model="searchEntity.cname">
+                        </div>
+                        <div class="layui-inline">
+                            <button class="layui-btn" ng-click="search()"><i class="layui-icon layui-icon-search"></i></button>
+                        </div>
+                        <div class="layui-inline">
+                            <button class="layui-btn" ng-click="refresh()"><i class="layui-icon layui-icon-refresh"></i></button>
+                        </div>
+                        <div class="layui-inline">
+                            <button class="layui-btn layui-btn-small layui-btn-normal" data-type="add" data-ng-click="send()">发送监察指令书</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-card-body">
+                    <table class="layui-table" lay-skin="line">
+                        <thead>
+                        <tr>
+                            <th>使用单位</th>
+                            <th>发起时间</th>
+                            <th>整改期限</th>
+                            <th>存在问题</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in list">
+                            <td>{{item.cname}}</td>
+                            <td>{{item.created | timeFilter}}</td>
+                            <td>{{item.closingTime | timeFilter}}</td>
+                            <td>{{item.problem | subString:20}}</td>
+                            <td>
+                                <a class="layui-btn layui-btn-normal layui-btn-xs" data-ng-click="detail(item)">查看详情</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div id="page"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--发送监察指令书-->
+<form class="layui-form" id="notice" ng-submit="sendSubmit()" style="padding: 20px 30px 0 0;display: none">
+    <div class="layui-form-item">
+        <label class="layui-form-label">使用单位</label>
+        <div class="layui-input-block">
+            <select name="" required lay-search id="cid">
+                <option data-ng-repeat="item in useCompanies" value="{{item.id}}">{{item.name}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">存在问题</label>
+        <div class="layui-input-block">
+            <textarea  lay-verify="required" class="layui-textarea" id="problem"></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">整改措施</label>
+        <div class="layui-input-block">
+            <textarea  lay-verify="required" class="layui-textarea" id="measure"></textarea>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">整改截止日期</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input"  id="closingTime" data-ng-model="closingTime" laydate laydate-type="datetime">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn layui-btn-small layui-btn-normal" data-ng-click="lookLaw()">查看法律法规</button>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">违法规定</label>
+        <div class="layui-input-block">
+            <textarea  lay-verify="required" class="layui-textarea" id="deregulation"></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">处理依据</label>
+        <div class="layui-input-block">
+            <textarea  lay-verify="required" class="layui-textarea" id="processBasis"></textarea>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">亮灯状态</label>
+        <div class="layui-input-block">
+            <select name="" required id="warnLevel">
+                <option value=""></option>
+                <option  value="RED">红灯</option>
+                <option  value="BLUE">蓝灯</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block" style="  padding-top: 20px">
+            <button class="layui-btn" lay-submit>确认提交</button>
+        </div>
+    </div>
+</form>
+
+<!--法律法规列表-->
+<div class="layui-fluid" id="law" style="display: none">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <!--search-->
+                <div class="layui-form layui-card-header" style="padding:15px 0;height: auto;margin-left: 15px">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <input type="text" class='layui-input' placeholder="关键字" ng-model="searchEntity2.content">
+                        </div>
+                        <div class="layui-inline">
+                            <button class="layui-btn" ng-click="lawSearch()"><i class="layui-icon layui-icon-search"></i></button>
+                        </div>
+                        <div class="layui-inline">
+                            <button class="layui-btn" ng-click="lawRefresh()"><i class="layui-icon layui-icon-refresh"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-card-body">
+                    <table class="layui-table" lay-skin="line">
+                        <thead>
+                        <tr>
+                            <th>标题</th>
+                            <th>内容</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in lawList">
+                            <td>{{item.title}}</td>
+                            <td>{{item.content | subString:20}}</td>
+                            <td>
+                                <a class="layui-btn layui-btn-normal layui-btn-xs" data-ng-click="lawDetail(item)">
+                                    <i class="layui-icon layui-icon-edit"></i>查看</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div id="lawPage"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--检查记录详情-->
+<form class="layui-form" id="lawDetail" style="padding: 20px 30px 0 0;display: none">
+    <div class="layui-form-item">
+        <label class="layui-form-label">标题</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" readonly data-ng-model="lawDetail.title">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">内容</label>
+        <div class="layui-input-block">
+            <textarea rows="15" readonly class="layui-textarea" data-ng-model="lawDetail.content"></textarea>
+        </div>
+    </div>
+</form>
+
+
+<!--检查记录详情-->
+<form class="layui-form" id="inspectDetail" ng-submit="submit()" style="padding: 20px 30px 0 0;display: none">
+    <div class="layui-form-item">
+        <label class="layui-form-label">使用单位:</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" readonly data-ng-model="inspectDetail.cname">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">维保单位:</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" readonly data-ng-model="inspectDetail.rname">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">维保时间:</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" readonly data-ng-model="inspectDetail.time">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">下次维保时间</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" readonly data-ng-model="inspectDetail.nextTime">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">内容</label>
+        <div class="layui-input-block">
+            <textarea  readonly class="layui-textarea" data-ng-model="inspectDetail.content"></textarea>
+        </div>
+    </div>
+
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;margin-left: 20px">
+        <legend>上传的图片信息</legend>
+    </fieldset>
+
+    <div class="layui-form-item" style="margin-left: 20px">
+        <ul class="imgList">
+            <li ng-repeat="image in inspectDetail.resources"><img ng-src="{{image.url}}"/></li>
+        </ul>
+    </div>
+</form>
