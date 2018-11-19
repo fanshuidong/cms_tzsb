@@ -27,18 +27,14 @@
                         <thead>
                         <tr>
                             <th>使用单位名字</th>
-                            <th>维保单位名字</th>
-                            <th>维保时间</th>
-                            <th>下次维保时间</th>
+                            <th>检查时间</th>
                             <th>操作</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr ng-repeat="item in list">
                             <td>{{item.cname}}</td>
-                            <td>{{item.rname}}</td>
                             <td>{{item.time | timeFilter}}</td>
-                            <td>{{item.nextTime | timeFilter}}</td>
                             <td>
                                 <a class="layui-btn layui-btn-normal layui-btn-xs" data-ng-click="detail(item)">查看详情</a>
                             </td>
@@ -62,26 +58,11 @@
             </select>
         </div>
     </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">维保单位</label>
-        <div class="layui-input-block">
-            <select name="" required lay-search id="rid">
-                <option data-ng-repeat="item in repairCompanies" value="{{item.id}}">{{item.name}}</option>
-            </select>
-        </div>
-    </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label">维保时间</label>
+        <label class="layui-form-label">检查时间</label>
         <div class="layui-input-block">
             <input type="text" class="layui-input"  id="time" data-ng-model="time" laydate laydate-type="datetime">
-        </div>
-    </div>
-
-    <div class="layui-form-item">
-        <label class="layui-form-label">下次维保时间</label>
-        <div class="layui-input-block">
-            <input type="text" class="layui-input"  id="nextTime"  data-ng-model="nextTime" laydate laydate-type="datetime">
         </div>
     </div>
 
@@ -122,24 +103,11 @@
             <input type="text" class="layui-input" readonly data-ng-model="inspectDetail.cname">
         </div>
     </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">维保单位:</label>
-        <div class="layui-input-block">
-            <input type="text" class="layui-input" readonly data-ng-model="inspectDetail.rname">
-        </div>
-    </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label">维保时间:</label>
+        <label class="layui-form-label">检查时间:</label>
         <div class="layui-input-block">
             <input type="text" class="layui-input" readonly data-ng-model="inspectDetail.time">
-        </div>
-    </div>
-
-    <div class="layui-form-item">
-        <label class="layui-form-label">下次维保时间</label>
-        <div class="layui-input-block">
-            <input type="text" class="layui-input" readonly data-ng-model="inspectDetail.nextTime">
         </div>
     </div>
 

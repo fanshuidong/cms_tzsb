@@ -3,19 +3,16 @@
         <div class="layui-col-md12">
             <div class="layui-card">
                 <!--search-->
-                <div class="layui-form layui-card-header" style="padding:15px 0;height: auto">
+                <div class="layui-form layui-card-header" style="padding:15px 0;height: auto;margin-left: 15px">
                     <div class="layui-form-item">
+                        <!--<div class="layui-inline">-->
+                            <!--<input type="text" class="layui-input" placeholder="设备编号" ng-model="searchEntity.id">-->
+                        <!--</div>-->
                         <div class="layui-inline">
-                            <label class="layui-form-label">设备编号</label>
-                            <div class="layui-input-block">
-                                <input type="text" class="layui-input" ng-model="searchEntity.id">
-                            </div>
+                            <input type="text" class='layui-input' placeholder="设备名称" ng-model="searchEntity.name">
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label">设备名称</label>
-                            <div class="layui-input-block">
-                                <input type="text" class='layui-input' ng-model="searchEntity.name">
-                            </div>
+                            <input type="text" class='layui-input' placeholder="使用单位名称" ng-model="searchEntity.cname">
                         </div>
                         <div class="layui-inline">
                             <button class="layui-btn" ng-click="search()"><i class="layui-icon layui-icon-search"></i></button>
@@ -32,7 +29,7 @@
                     <table class="layui-table" lay-skin="line">
                         <thead>
                         <tr>
-                            <th>设备编号</th>
+                            <!--<th>设备编号</th>-->
                             <th>设备名字</th>
                             <th>出厂码</th>
                             <th>使用单位名称</th>
@@ -40,11 +37,12 @@
                             <th>设备型号</th>
                             <th>设备地址</th>
                             <th>使用状态</th>
+                            <th>亮灯状态</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr ng-repeat="item in list">
-                            <td>{{item.id}}</td>
+                            <!--<td>{{item.id}}</td>-->
                             <td>{{item.name}}</td>
                             <td>{{item.din}}</td>
                             <td>{{item.cname}}</td>
@@ -52,6 +50,7 @@
                             <td>{{item.model}}</td>
                             <td>{{item.address}}</td>
                             <td>{{item.useState}}</td>
+                            <td ng-bind-html="item.warnLevel | enumFilter:'warnLevel'"></td>
                         </tr>
                         </tbody>
                     </table>

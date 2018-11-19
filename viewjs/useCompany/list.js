@@ -83,52 +83,52 @@ define(function (require) {
         };
 
         // 百度地图API功能
-        var map = new BMap.Map("allMap");
-        var point = new BMap.Point(116.331398,39.897445);
-        map.centerAndZoom(point,12);
-        function myFun(result){
-            var cityName = result.name;
-            map.setCenter(cityName);
-            // alert("当前定位城市:"+cityName);
-        }
-        var myCity = new BMap.LocalCity();
-
-        $scope.searchMap = function () {
-            var local = new BMap.LocalSearch(map, {
-                renderOptions:{map: map,panel:"r-result"}
-            });
-            local.setPageCapacity(5);
-            local.setResultsHtmlSetCallback(function(result) {
-                /*返回最近一次检索的结果*/
-                var data = local.getResults();
-                $.each($("ol li"), function (index, domEle) {
-                    /*删除电话一行*/
-                    $(this).find("div div").each(function () {
-                        var bs = $(this).find("b").text();
-                        if (bs == "电话:") {
-                            $(this).remove();
-                        }
-                    });
-                    /*删除详情*/
-                    $(this).find("a").each(function () {
-                        if ($(this).text() == "详情»") {
-                            $(this).remove();
-                        }
-                    });
-                    /*搜索结果的单行的点击事件*/
-                    $(this).bind("click", function () {
-                        var thisObj = data.Br[index];
-                        if (thisObj) {
-                            $scope.useCompany.latitude = thisObj.point.lat;
-                            $scope.useCompany.longitude = thisObj.point.lng;
-                            $scope.$apply();
-                        }
-                    });
-                });
-                /*$.each end*/
-            });
-            local.search($scope.mapAtr);
-        };
+        // var map = new BMap.Map("allMap");
+        // var point = new BMap.Point(116.331398,39.897445);
+        // map.centerAndZoom(point,12);
+        // function myFun(result){
+        //     var cityName = result.name;
+        //     map.setCenter(cityName);
+        //     // alert("当前定位城市:"+cityName);
+        // }
+        // var myCity = new BMap.LocalCity();
+        //
+        // $scope.searchMap = function () {
+        //     var local = new BMap.LocalSearch(map, {
+        //         renderOptions:{map: map,panel:"r-result"}
+        //     });
+        //     local.setPageCapacity(5);
+        //     local.setResultsHtmlSetCallback(function(result) {
+        //         /*返回最近一次检索的结果*/
+        //         var data = local.getResults();
+        //         $.each($("ol li"), function (index, domEle) {
+        //             /*删除电话一行*/
+        //             $(this).find("div div").each(function () {
+        //                 var bs = $(this).find("b").text();
+        //                 if (bs == "电话:") {
+        //                     $(this).remove();
+        //                 }
+        //             });
+        //             /*删除详情*/
+        //             $(this).find("a").each(function () {
+        //                 if ($(this).text() == "详情»") {
+        //                     $(this).remove();
+        //                 }
+        //             });
+        //             /*搜索结果的单行的点击事件*/
+        //             $(this).bind("click", function () {
+        //                 var thisObj = data.Br[index];
+        //                 if (thisObj) {
+        //                     $scope.useCompany.latitude = thisObj.point.lat;
+        //                     $scope.useCompany.longitude = thisObj.point.lng;
+        //                     $scope.$apply();
+        //                 }
+        //             });
+        //         });
+        //         /*$.each end*/
+        //     });
+        //     local.search($scope.mapAtr);
+        // };
 
         //分页 laypage
         $scope.initPage = function(id,count,entity) {
