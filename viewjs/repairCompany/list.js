@@ -6,7 +6,7 @@ define(function (require) {
     require('ui-table');
     var toastr =require('toastr');
     app.useModule("ui.table");
-    app.controller('repairCompanyListCtrl', ['$scope','$http','enums','DateUtil',function ($scope, $http,enums,DateUtil) {
+    app.controller('repairCompanyListCtrl', ['$scope','$rootScope','$http','enums','DateUtil',function ($scope, $rootScope,$http,enums,DateUtil) {
         $scope.selectOptions = {
             allowClear: false,
             language : 'zh-CN'
@@ -45,38 +45,37 @@ define(function (require) {
         $scope.refresh = function () {
             $scope.query(true);
         };
-        $scope.add  = function () {
-            $scope.index = openDomLayer("新增维保单位","repairCompany",'1000px');
-            $scope.repairCompany = {};
-            $scope.isAdd = true;
+
+        $scope.openRepairs = function (item) {
+            $scope.cid = item.id;
+            openDomLayer("检查记录列表","repairs",['700px','700px']);
+            layui.use(['form'],function () {
+                var form = layui.form;
+                form.render();
+            });
+            $scope.repairs(true)
         };
-        $scope.edit  = function (item) {
-            $scope.index = openDomLayer("编辑维保单位","repairCompany",'1000px');
-            $scope.repairCompany = {};
-            for(var index in item)
-                $scope.repairCompany[index] = item[index];
-            $scope.repairCompany.registerTime = DateUtil.getFormateDate(new Date($scope.repairCompany.registerTime*1000));
-            $scope.isAdd = false;
-        };
-        $scope.delete = function () {
-            layer.confirm("确认删除该条记录吗？",function () {
-                
-            })  
-        };
-        $scope.submit = function () {
-            $scope.repairCompany.registerTime = Date.parse($scope.repairCompany.registerTime)/1000;
+
+        $scope.repairs = function () {
+            if(reset){
+                $scope.searchEntity2 = {"page":1,"pageSize":10,"cid":$scope.cid}
+            }
             $http({
                 method: 'POST',
-                url: $scope.isAdd?"sem/company/create/repair":"sem/company/modify/repair",
-                data:$scope.repairCompany
+                url: "device/repairs/repair",
+                data:$scope.searchEntity2
             }).success(function(data) {
-                if(data.code === 'code.success'){
-                    toastr.success("操作成功!");
-                    layer.closeAll();
-                    $("#repairCompany").hide();
-                    $scope.query();
-                }
+                $scope.repairsList = data.attach.list;
+                $scope.initRepairsPage("repairsPage",data.attach.total,$scope.searchEntity2);
             });
+        };
+        //条件查询
+        $scope.repairsSearch=function(){
+            $scope.query();
+        };
+        //刷新
+        $scope.repairsRefresh = function () {
+            $scope.repairs(true);
         };
 
 
@@ -98,6 +97,30 @@ define(function (require) {
                         if(!first){
                             entity.page=obj.curr;
                             $scope.query();
+                        }
+                    }
+                });
+            });
+        };
+
+        //分页 lawPage
+        $scope.initRepairsPage = function(id,count,entity) {
+            layui.use('laypage', function(){
+                var laypage = layui.laypage;
+                //执行一个laypage实例
+                laypage.render({
+                    elem: id, //注意，这里的 test1 是 ID，不用加 # 号
+                    count: count, //数据总数，从服务端得到
+                    limit:entity.pageSize,
+                    limits:[entity.pageSize, 20, 30, 40, 50],
+                    curr:entity.page,
+                    groups:5,
+                    layout:['count','prev', 'page', 'next','limit','refresh','skip'],
+                    jump: function(obj, first){
+                        //首次不执行
+                        if(!first){
+                            entity.page=obj.curr;
+                            $scope.repairs();
                         }
                     }
                 });

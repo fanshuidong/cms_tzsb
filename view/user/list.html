@@ -53,7 +53,9 @@
                             <th>用户名</th>
                             <th>姓名</th>
                             <th>手机</th>
-                            <th>注册时间</th>
+                            <th>辖区</th>
+                            <th>使用单位</th>
+                            <th>维保单位</th>
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -63,7 +65,9 @@
                             <td>{{item.uname}}</td>
                             <td>{{item.nickname}}</td>
                             <td>{{item.mobile}}</td>
-                            <td>{{item.created | timeFilter}}</td>
+                            <td>{{item.regionName}}</td>
+                            <td>{{item.ctype=='USE'?item.cname:"" }}</td>
+                            <td>{{item.ctype=='REPAIR'?item.cname:"" }}</td>
                             <td>
                                 <a class="layui-btn layui-btn-normal layui-btn-xs" data-ng-click="auth(item)">
                                     <i class="layui-icon layui-icon-edit"></i>角色授权</a>

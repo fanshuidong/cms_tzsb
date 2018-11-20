@@ -31,12 +31,11 @@
                         <tr>
                             <!--<th>设备编号</th>-->
                             <th>设备名字</th>
-                            <th>出厂码</th>
+                            <th>出厂编号</th>
                             <th>使用单位名称</th>
-                            <th>设备级别</th>
                             <th>设备型号</th>
-                            <th>设备地址</th>
-                            <th>使用状态</th>
+                            <th>种类</th>
+                            <th>安全管理人员</th>
                             <th>亮灯状态</th>
                         </tr>
                         </thead>
@@ -46,10 +45,9 @@
                             <td>{{item.name}}</td>
                             <td>{{item.din}}</td>
                             <td>{{item.cname}}</td>
-                            <td>{{item.level}}</td>
                             <td>{{item.model}}</td>
-                            <td>{{item.address}}</td>
-                            <td>{{item.useState}}</td>
+                            <td>{{item.category}}</td>
+                            <td>{{item.safeMan}}</td>
                             <td ng-bind-html="item.warnLevel | enumFilter:'warnLevel'"></td>
                         </tr>
                         </tbody>

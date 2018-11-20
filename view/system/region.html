@@ -7,29 +7,29 @@
 </div>
 
 <!--新增辖区-->
-<form class="layui-form" id="popedom" ng-submit="submit()" style="padding: 20px 30px 0 0;display: none;">
-    <div class="layui-form-item">
+<form class="layui-form" id="popedom" ng-submit="submit()" style="padding: 20px 30px 0 0;display: none;margin-left: 15px">
+    <div class="layui-form-item" style="display: none">
         <label class="layui-form-label">上级辖区编号</label>
-        <div class="layui-input-inline">
+        <div class="layui-input-block">
             <input type="text" name="parent" readonly class="layui-input" data-ng-model="popedom.parent">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">辖区编号</label>
-        <div class="layui-input-inline">
-            <input type="text" id="id" name="id" lay-verify="required" class="layui-input" data-ng-model="popedom.id">
+        <label class="layui-form-label">行政区划编码</label>
+        <div class="layui-input-block">
+            <input type="text" id="id" name="id" lay-verify="required" class="layui-input" data-ng-model="popedom.code">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">辖区名称</label>
-        <div class="layui-input-inline">
+        <label class="layui-form-label">行政区划名称</label>
+        <div class="layui-input-block">
             <input type="text" name="name" lay-verify="required" class="layui-input" data-ng-model="popedom.name">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">启用状态</label>
         <div class="layui-input-block">
-            <input type="checkbox" name="valid" id="valid" lay-skin="switch" lay-text="开启|关闭" lay-filter="valid">
+            <input type="checkbox" name="valid" id="valid" data-ng-model="popedom.open" lay-skin="switch" lay-text="开启|关闭" lay-filter="valid">
         </div>
     </div>
     <div class="layui-form-item">

@@ -27,10 +27,10 @@ define(function (require) {
         //获取使用单位列表
         $http({
             method: 'POST',
-            url: "eep/company/list/use",
-            data:{page:1,pageSize:20000}
+            url: "eep/company/list/use/all",
+            data:{}
         }).success(function(data) {
-            $rootScope.useCompanies = data.attach.list;
+            $rootScope.useCompanies = data.attach;
         });
         //获取维保单位列表
         $http({
@@ -341,17 +341,17 @@ define(function (require) {
                 controllerUrl: 'viewjs/notice/list.js',
                 controller: "noticeListCtrl"
             })
-            //辖区管理
-            .state("popedom", {
-                url: "/popedom",
-                templateUrl: "view/include/module.html"
-            })
-            .state("popedom.tree", {
-                url: "/tree",
-                templateUrl: "view/popedom/tree.html",
-                controllerUrl: 'viewjs/popedom/tree.js',
-                controller: "treeCtrl"
-            })
+            // //辖区管理
+            // .state("popedom", {
+            //     url: "/popedom",
+            //     templateUrl: "view/include/module.html"
+            // })
+            // .state("popedom.tree", {
+            //     url: "/tree",
+            //     templateUrl: "view/popedom/tree.html",
+            //     controllerUrl: 'viewjs/popedom/tree.js',
+            //     controller: "treeCtrl"
+            // })
             //系统配置
             .state("system", {
                 url: "/system",
@@ -368,6 +368,12 @@ define(function (require) {
                 templateUrl: "view/system/column.html",
                 controllerUrl: 'viewjs/system/columnCtrl.js',
                 controller: "columnCtrl"
+            })
+            .state("system.region", {
+                url: "/region",
+                templateUrl: "view/system/region.html",
+                controllerUrl: 'viewjs/system/region.js',
+                controller: "regionCtrl"
             })
 
     }]);
@@ -418,7 +424,13 @@ define(function (require) {
             {value:"YELLOW",text:"黄灯",mark:2,color:"yellow"},
             {value:"BLUE",text:"蓝灯",mark:3,color:"blue"},
             {value:"RED",text:"红灯",mark:4,color:"red"}
-        ]
+        ];
+        //设备注册状态
+        this.regType = [
+            {value:"",text:"未登记",mark:0},
+            {value:"",text:"已登记",mark:1},
+            {value:"",text:"注销",mark:9}
+        ];
 
         this.enumConfig = {
             os:this.os,

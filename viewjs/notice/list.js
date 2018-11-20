@@ -49,7 +49,7 @@ define(function (require) {
 
         //发送监察指令书
         $scope.send = function () {
-            openDomLayer("发送监察指令书","notice",['700px','900px']);
+            openDomLayer("发送监察指令书","notice",['700px','820px']);
             layui.use(['form'],function () {
                 var form = layui.form;
                 form.render();
@@ -79,7 +79,7 @@ define(function (require) {
         };
 
         $scope.lookLaw = function () {
-            var lawId = openDomLayer("法律法规列表","law",['700px','900px']);
+            openDomLayer("法律法规列表","law",['700px','700px']);
             layui.use(['form'],function () {
                 var form = layui.form;
                 form.render();
@@ -98,7 +98,7 @@ define(function (require) {
             }).success(function(data) {
                 console.log(data);
                 $scope.lawList = data.attach.list;
-                $scope.initPage("lawPage",data.attach.total,$scope.searchEntity2);
+                $scope.initLawPage("lawPage",data.attach.total,$scope.searchEntity2);
             });
         };
         //条件查询
@@ -111,8 +111,9 @@ define(function (require) {
         };
 
         $scope.lawDetail = function (item) {
-            var id = openDomLayer("法律法规详情","lawDetail",['500px','500px']);
-            $scope.lawDetail = item;
+            openDomLayer("法律法规详情","lawDetail",['500px','500px']);
+            $("#title").val(item.title);
+            $("#content").val(item.content);
         };
         
         //分页 laypage
@@ -140,7 +141,7 @@ define(function (require) {
         };
 
         //分页 lawPage
-        $scope.initPage = function(id,count,entity) {
+        $scope.initLawPage = function(id,count,entity) {
             layui.use('laypage', function(){
                 var laypage = layui.laypage;
                 //执行一个laypage实例

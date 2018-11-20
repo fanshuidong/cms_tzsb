@@ -54,8 +54,8 @@
     <div class="layui-form-item">
         <label class="layui-form-label">使用单位</label>
         <div class="layui-input-block">
-            <select name="" required lay-search id="cid">
-                <option data-ng-repeat="item in useCompanies" value="{{item.id}}">{{item.name}}</option>
+            <select  lay-verify="required" lay-search id="cid">
+                <option data-ng-repeat="item in useCompanies" value="{{item.id}}"></option>
             </select>
         </div>
     </div>
@@ -81,7 +81,7 @@
 
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button class="layui-btn layui-btn-small layui-btn-normal" data-ng-click="lookLaw()">查看法律法规</button>
+            <a class="layui-btn layui-btn-small layui-btn-normal" data-ng-click="lookLaw()">查看法律法规</a>
         </div>
     </div>
     <div class="layui-form-item">
@@ -100,7 +100,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">亮灯状态</label>
         <div class="layui-input-block">
-            <select name="" required id="warnLevel">
+            <select lay-verify="required" id="warnLevel">
                 <option value=""></option>
                 <option  value="RED">红灯</option>
                 <option  value="BLUE">蓝灯</option>
@@ -144,11 +144,11 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="item in lawList">
-                            <td>{{item.title}}</td>
-                            <td>{{item.content | subString:20}}</td>
+                        <tr ng-repeat="law in lawList">
+                            <td>{{law.title}}</td>
+                            <td>{{law.content | subString:20}}</td>
                             <td>
-                                <a class="layui-btn layui-btn-normal layui-btn-xs" data-ng-click="lawDetail(item)">
+                                <a class="layui-btn layui-btn-normal layui-btn-xs" data-ng-click="lawDetail(law)">
                                     <i class="layui-icon layui-icon-edit"></i>查看</a>
                             </td>
                         </tr>
@@ -161,19 +161,19 @@
     </div>
 </div>
 
-<!--检查记录详情-->
+<!--法律详情-->
 <form class="layui-form" id="lawDetail" style="padding: 20px 30px 0 0;display: none">
     <div class="layui-form-item">
         <label class="layui-form-label">标题</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input" readonly data-ng-model="lawDetail.title">
+            <input type="text" class="layui-input" id="title" readonly>
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">内容</label>
         <div class="layui-input-block">
-            <textarea rows="15" readonly class="layui-textarea" data-ng-model="lawDetail.content"></textarea>
+            <textarea rows="15" readonly class="layui-textarea" id="content"></textarea>
         </div>
     </div>
 </form>

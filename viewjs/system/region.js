@@ -8,7 +8,7 @@ define(function (require) {
     require('multiselect');
     var toastr =require('toastr');
     app.useModule("ui.table");
-    app.controller('treeCtrl', ['$scope','$http',function ($scope, $http) {
+    app.controller('regionCtrl', ['$scope','$rootScope','$http',function ($scope,$rootScope, $http) {
         $scope.setting = {
             view: {
                 selectedMulti: false,
@@ -42,12 +42,15 @@ define(function (require) {
         $scope.popedomLoad = function () {
             $http({
                 method: 'POST',
-                url: "sem/popedom/chain",
-                data:{}
-            }).success(function (data) {
-                console.log(data);
-                if(data.code === 'code.success'){
-                    $.fn.zTree.init($("#treeDemo"), $scope.setting, data.attach);
+                url: "eep/user/privilleges",
+                data:{regionChain:true}
+            }).success(function(data) {
+                console.log(data.attach.regions);
+                for(var i = 0;i<data.attach.regions.length;i++){
+                    data.attach.regions[i].isOpen = data.attach.regions[i].open;
+                }
+                if(data.code === $rootScope.successCode){
+                    $.fn.zTree.init($("#treeDemo"), $scope.setting, data.attach.regions);
                     var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
                     treeObj.expandAll(true);
                 }
@@ -60,10 +63,10 @@ define(function (require) {
             if(confirm("确认要删除该辖区以及其底下的辖区吗？")){
                 $http({
                     method: 'POST',
-                    url: "sem/popedom/delete",
+                    url: "eep/region/delete",
                     data: {id: treeNode.id}
                 }).success(function (data) {
-                    if (data.code === 'code.success') {
+                    if (data.code === $rootScope.successCode) {
                         toastr.success("删除成功");
                         return true;
                     } else {
@@ -77,15 +80,15 @@ define(function (require) {
         }
 
         function zTreeOnClick(event,treeId,treeNode) {
-            $scope.popedom = {parent:treeNode.parent,id:treeNode.id,name:treeNode.name};
+            $scope.popedom = {parent:treeNode.parent,region:treeNode.id,code:treeNode.code,name:treeNode.name,open:treeNode.isOpen};
             $scope.index = openDomLayer("编辑辖区","popedom");
             layui.use('form',function () {
                 var form = layui.form;
                 form.on('switch(valid)', function(data){
                     console.log(data.elem.checked); //开关是否开启，true或者false
-                    $scope.popedom.valid = data.elem.checked;
+                    $scope.popedom.open = data.elem.checked;
                 });
-                $("#valid").prop('checked', treeNode.valid);
+                $("#valid").prop('checked', treeNode.isOpen);
                 form.render();
             });
             $scope.isAdd = false;
@@ -123,11 +126,11 @@ define(function (require) {
         $scope.submit = function () {
             $http({
                 method: 'POST',
-                url: $scope.isAdd?"sem/popedom/create":"sem/popedom/modify",
+                url: $scope.isAdd?"eep/region/create":"eep/region/modify",
                 data:$scope.popedom
             }).success(function (data) {
                 console.log(data);
-                if(data.code === 'code.success'){
+                if(data.code === $rootScope.successCode){
                     toastr.success("操作成功");
                     layer.closeAll();
                     $("#popedom").hide();
