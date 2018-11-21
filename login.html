@@ -87,7 +87,9 @@
                         window.localStorage.setItem("t_region", response.attach.user.region);
                         window.location.href = "index.html";
                     } else {
-                        alert(response.code);
+                        layer.open({
+                            content: response.desc
+                        });
                     }
                 },
                 error: function(e) {

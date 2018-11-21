@@ -11,6 +11,17 @@ define(function (require) {
             allowClear: false,
             language : 'zh-CN'
         };
+
+        $http({
+            method: 'POST',
+            url: "eep/common/law/categories",
+            data:{}
+        }).success(function(data) {
+            console.log(data);
+            $scope.lawCategories = data.attach.list;
+            console.log($scope.lawCategories);
+        });
+
         $scope.warnLevel = enums.warnLevel;
         $scope.query=function(reset){
             if(reset){
@@ -49,7 +60,7 @@ define(function (require) {
 
         //发送监察指令书
         $scope.send = function () {
-            openDomLayer("发送监察指令书","notice",['700px','820px']);
+            openDomLayer("发送监察指令书","notice",['700px','600px']);
             layui.use(['form'],function () {
                 var form = layui.form;
                 form.render();
@@ -98,6 +109,13 @@ define(function (require) {
             }).success(function(data) {
                 console.log(data);
                 $scope.lawList = data.attach.list;
+                for(var i=0;i<$scope.lawList.length;i++){
+                    for(var index in $scope.lawCategories){
+                        if($scope.lawCategories[index].id === $scope.lawList[i].categoryId){
+                            $scope.lawList[i].categoryName = $scope.lawCategories[index].name;
+                        }
+                    }
+                }
                 $scope.initLawPage("lawPage",data.attach.total,$scope.searchEntity2);
             });
         };
@@ -113,6 +131,7 @@ define(function (require) {
         $scope.lawDetail = function (item) {
             openDomLayer("法律法规详情","lawDetail",['500px','500px']);
             $("#title").val(item.title);
+            $("#categoryName").val(item.categoryName);
             $("#content").val(item.content);
         };
         

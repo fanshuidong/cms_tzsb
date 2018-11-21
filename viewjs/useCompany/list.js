@@ -12,13 +12,14 @@ define(function (require) {
             language : 'zh-CN'
         };
         $scope.warnLevel = enums.warnLevel;
+        $scope.warnType = enums.warnType;
         $scope.query=function(reset){
             if(reset){
-                $scope.searchEntity = {"page":1,"pageSize":10}
+                $scope.searchEntity = {"page":1,"pageSize":10,"region":$rootScope.region}
             }
             $http({
                 method: 'POST',
-                url: "eep/company/list/use",
+                url: "eep/company/list/use/area",
                 data:$scope.searchEntity
             }).success(function(data) {
                 console.log(data);
@@ -70,18 +71,34 @@ define(function (require) {
             $scope.useCompany.registerTime = Date.parse($scope.useCompany.registerTime)/1000;
             $http({
                 method: 'POST',
-                url: $scope.isAdd?"sem/company/create/use":"sem/company/modify/use",
-                data:$scope.useCompany
+                url: "eep/company/list/use",
+                data:$scope.searchEntity
             }).success(function(data) {
-                if(data.code === $rootScope.successCode){
-                    toastr.success("操作成功!");
-                    layer.closeAll();
-                    $("#useCompany").hide();
-                    $scope.query();
-                }
+                console.log(data);
+                $scope.list = data.attach.list;
+                $scope.initPage("page",data.attach.total,$scope.searchEntity);
             });
         };
 
+        $scope.alerts = function (item) {
+            $scope.cid = item.id;
+            $scope.alertsQuery(true);
+            $scope.index = openDomLayer("亮灯原因","alerts",['700px','600px']);
+        };
+        $scope.alertsQuery =function (reset) {
+            if(reset){
+                $scope.searchEntity2 = {page:1,pageSize:10,cid:$scope.cid,region:$rootScope.region};
+            }
+            $http({
+                method: 'POST',
+                url: "eep/company/alerts/area",
+                data:$scope.searchEntity2
+            }).success(function(data) {
+                $scope.alertsList = data.attach.list;
+                if(data.attach.total>10)
+                    $scope.initPage("alertsPage",data.attach.total,$scope.searchEntity);
+            });
+        };
         // 百度地图API功能
         // var map = new BMap.Map("allMap");
         // var point = new BMap.Point(116.331398,39.897445);
@@ -147,12 +164,36 @@ define(function (require) {
                         //首次不执行
                         if(!first){
                             entity.page=obj.curr;
+                            $scope.alertsQuery();
+                        }
+                    }
+                });
+            });
+        };
+        //分页 laypage
+        $scope.initPage = function(id,count,entity) {
+            layui.use('laypage', function(){
+                var laypage = layui.laypage;
+                //执行一个laypage实例
+                laypage.render({
+                    elem: id, //注意，这里的 test1 是 ID，不用加 # 号
+                    count: count, //数据总数，从服务端得到
+                    limit:entity.pageSize,
+                    limits:[entity.pageSize, 20, 30, 40, 50],
+                    curr:entity.page,
+                    groups:5,
+                    layout:['count','prev', 'page', 'next','limit','refresh','skip'],
+                    jump: function(obj, first){
+                        //首次不执行
+                        if(!first){
+                            entity.page=obj.curr;
                             $scope.query();
                         }
                     }
                 });
             });
         };
+
 
     }]);
 });

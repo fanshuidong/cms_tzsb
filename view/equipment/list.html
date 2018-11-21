@@ -36,6 +36,7 @@
                             <th>设备型号</th>
                             <th>种类</th>
                             <th>安全管理人员</th>
+                            <th>下次检测时间</th>
                             <th>亮灯状态</th>
                         </tr>
                         </thead>
@@ -47,6 +48,7 @@
                             <td>{{item.cname}}</td>
                             <td>{{item.model}}</td>
                             <td>{{item.category}}</td>
+                            <td>{{item.safeMan}}</td>
                             <td>{{item.safeMan}}</td>
                             <td ng-bind-html="item.warnLevel | enumFilter:'warnLevel'"></td>
                         </tr>

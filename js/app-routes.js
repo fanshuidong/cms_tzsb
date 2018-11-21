@@ -34,15 +34,15 @@ define(function (require) {
         $http({
             method: 'POST',
             url: "eep/company/list/use/all",
-            data:{}
+            data:{page:1,pageSize:20000,region:$rootScope.region}
         }).success(function(data) {
             $rootScope.useCompanies = data.attach;
         });
         //获取维保单位列表
         $http({
             method: 'POST',
-            url: "eep/company/list/repair",
-            data:{page:1,pageSize:20000}
+            url: "eep/company/list/repair/area",
+            data:{page:1,pageSize:20000,region:$rootScope.region}
         }).success(function(data) {
             $rootScope.repairCompanies = data.attach.list;
         });
@@ -438,12 +438,24 @@ define(function (require) {
             {value:"",text:"注销",mark:9}
         ];
 
+        //警告类型
+        this.warnType = [
+            {value:"EXAMINE_DATE_NILL",text:"获取不到设备检测日期",mark:1},
+            {value:"EXAMINE_DATE_EXPIRE_LIGHT",text:"检测日期临近",mark:2},
+            {value:"EXAMINE_DATE_EXPIRE_SERIOUS",text:"检测日期超时",mark:3},
+            {value:"RECITIFY_NOTICE",text:"整改通知",mark:4},
+            {value:"RECITIFY_NOTICE_EXPIRE",text:"整改通知超期",mark:5},
+            {value:"OPERATOR_CERT_EXPIRE_LIGHT",text:"作业人员证书有效期轻度超期",mark:7},
+            {value:"OPERATOR_CERT_EXPIRE_SERIOUS",text:"作业人员证书有效期重度超期",mark:7}
+        ];
+
         this.enumConfig = {
             os:this.os,
             client:this.client,
             deviceType:this.deviceType,
             timeUnit:this.timeUnit,
             warnLevel:this.warnLevel,
+            warnType:this.warnType,
             accountType:this.accountType
         };
         this.cuisineType = [

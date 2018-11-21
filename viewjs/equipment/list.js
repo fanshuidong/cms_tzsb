@@ -6,14 +6,14 @@ define(function (require) {
     require('ui-table');
     var toastr =require('toastr');
     app.useModule("ui.table");
-    app.controller('equipmentListCtrl', ['$scope','$http','enums','DateUtil',function ($scope, $http,enums,DateUtil) {
+    app.controller('equipmentListCtrl', ['$scope','$rootScope','$http','enums','DateUtil',function ($scope, $rootScope,$http,enums,DateUtil) {
         $scope.selectOptions = {
             allowClear: false,
             language : 'zh-CN'
         };
         $scope.query=function(reset){
             if(reset){
-                $scope.searchEntity = {"page":1,"pageSize":10}
+                $scope.searchEntity = {"page":1,"pageSize":10,"region":$rootScope.region}
             }
             $http({
                 method: 'POST',

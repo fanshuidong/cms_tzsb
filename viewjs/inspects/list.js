@@ -50,7 +50,7 @@ define(function (require) {
 
         $scope.images = [];
         $scope.add = function () {
-            openDomLayer("新增检查记录","inspects",['700px','700px']);
+            openDomLayer("新增检查记录","inspects",['700px','600px']);
             layui.use(['form'],function () {
                 var form = layui.form;
                 form.render();

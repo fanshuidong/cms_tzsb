@@ -55,7 +55,7 @@
         <label class="layui-form-label">使用单位</label>
         <div class="layui-input-block">
             <select  lay-verify="required" lay-search id="cid">
-                <option data-ng-repeat="item in useCompanies" value="{{item.id}}"></option>
+                <option data-ng-repeat="item in useCompanies" value="{{item.id}}">{{item.name}}</option>
             </select>
         </div>
     </div>
@@ -140,13 +140,15 @@
                         <tr>
                             <th>标题</th>
                             <th>内容</th>
+                            <th>所属类型</th>
                             <th>操作</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr ng-repeat="item in lawList">
                             <td>{{item.title}}</td>
-                            <td>{{item.content | subString:20}}</td>
+                            <td>{{item.content | subString:10}}</td>
+                            <td>{{item.categoryName}}</td>
                             <td>
                                 <a class="layui-btn layui-btn-normal layui-btn-xs" data-ng-click="lawDetail(item)">
                                     <i class="layui-icon layui-icon-edit"></i>查看</a>
@@ -169,7 +171,12 @@
             <input type="text" class="layui-input" id="title" readonly>
         </div>
     </div>
-
+    <div class="layui-form-item">
+        <label class="layui-form-label">所属类型</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" id="categoryName" readonly>
+        </div>
+    </div>
     <div class="layui-form-item">
         <label class="layui-form-label">内容</label>
         <div class="layui-input-block">

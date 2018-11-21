@@ -37,7 +37,8 @@ define(function (require) {
                     window.location.href = "login.html";
                 }
                 if(response.data.code && response.data.code!== $rootScope.successCode){
-                    toastr.error(response.data.desc);
+                    // toastr.error(response.data.desc);
+                    layer.open({title:"错误信息",skin: 'layui-layer-lan',content:response.data.desc})
                 }
                 $rootScope.response = true;
                 $('.landmark').removeClass('landmark-block');
@@ -48,7 +49,8 @@ define(function (require) {
                     window.location.href = "login.html";
                     return response;
                 }
-                toastr.error("服务器异常，请稍后再试");
+                // toastr.error("服务器异常，请稍后再试");
+                layer.open({title:"系统异常",skin: 'layui-layer-lan',content:"服务器异常，请稍后再试"});
                 $rootScope.response = true;
                 $('.landmark').removeClass('landmark-block');
                 return $q.reject(response);

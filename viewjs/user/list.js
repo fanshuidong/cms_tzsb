@@ -59,9 +59,19 @@ define(function (require) {
             $scope.isAdd = false;
             $scope.index = openDomLayer("编辑用户","userModify");
         };
-        $scope.delete = function () {
-            layer.confirm("确认删除该条记录吗？",function () {
-                
+        $scope.deleteCompany = function (item) {
+            layer.confirm("确认解除单位关系吗？",function () {
+                $http({
+                    method: 'POST',
+                    url:"eep/company/employee/delete",
+                    data:{id:item.id}
+                }).success(function(data) {
+                    if(data.code === $rootScope.successCode){
+                        toastr.success("操作成功!");
+                        layer.closeAll();
+                        $scope.query();
+                    }
+                });
             })  
         };
         $scope.submit = function () {

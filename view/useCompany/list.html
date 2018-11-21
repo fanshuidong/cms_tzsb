@@ -41,7 +41,7 @@
                             <th>负责人</th>
                             <th>负责人电话</th>
                             <td>状态</td>
-                            <!--<th>操作</th>-->
+                            <th>操作</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -56,12 +56,9 @@
                             <td>{{item.legalPersonName}}</td>
                             <td>{{item.legalPersonMobile}}</td>
                             <td ng-bind-html="item.warnLevel | enumFilter:'warnLevel'"></td>
-                            <!--<td>-->
-                                <!--<a class="layui-btn layui-btn-normal layui-btn-xs" data-ng-click="edit(item)">-->
-                                    <!--<i class="layui-icon layui-icon-edit"></i>编辑</a>-->
-                                <!--<a class="layui-btn layui-btn-danger layui-btn-xs" data-ng-click="delete(item)">-->
-                                    <!--<i class="layui-icon layui-icon-delete"></i>删除</a>-->
-                            <!--</td>-->
+                            <td>
+                                <a class="layui-btn layui-btn-danger layui-btn-xs" data-ng-click="alerts(item)">亮灯原因</a>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
@@ -71,107 +68,139 @@
         </div>
     </div>
 </div>
-<!--使用单位页面-->
-<form class="layui-form" id="useCompany" ng-submit="submit()" style="padding: 20px 30px 0 0;display: none">
-    <div class="layui-row layui-col-space10 layui-form-item">
-        <div class="layui-col-md6">
-            <label class="layui-form-label">企业名称</label>
-            <div class="layui-input-block">
-                <input type="text"  lay-verify="required" class="layui-input" data-ng-model="useCompany.name">
-            </div>
-        </div>
-        <div class="layui-col-md6">
-            <label class="layui-form-label">企业详细地址</label>
-            <div class="layui-input-block">
-                <input type="text"  lay-verify="required" class="layui-input" data-ng-model="useCompany.address">
-            </div>
-        </div>
-    </div>
-    <div class="layui-row layui-col-space10 layui-form-item">
-        <div class="layui-col-md6">
-            <label class="layui-form-label">企业属性</label>
-            <div class="layui-input-block">
-                <input type="text" lay-verify="required" class="layui-input" data-ng-model="useCompany.attr">
-            </div>
-        </div>
-        <div class="layui-col-md6">
-            <label class="layui-form-label">注册时间</label>
-            <div class="layui-input-block">
-                <input type="text" class="layui-input" data-ng-model="useCompany.registerTime" id="registerTime"  laydate laydate-type="datetime">
-            </div>
-        </div>
-    </div>
-    <div class="layui-row layui-col-space10 layui-form-item">
-        <div class="layui-col-md6">
-            <label class="layui-form-label">行政区划代码</label>
-            <div class="layui-input-block">
-                <input type="text"  lay-verify="required" class="layui-input" data-ng-model="useCompany.popedom">
-            </div>
-        </div>
-        <div class="layui-col-md6">
-            <label class="layui-form-label">企业法人</label>
-            <div class="layui-input-block">
-                <input type="text" lay-verify="required" class="layui-input" data-ng-model="useCompany.legalPersonName">
-            </div>
-        </div>
-    </div>
-    <div class="layui-row layui-col-space10 layui-form-item">
-        <div class="layui-col-md6">
-            <label class="layui-form-label">社会信用代码</label>
-            <div class="layui-input-block">
-                <input type="text" lay-verify="required" class="layui-input" data-ng-model="useCompany.socialCreditCode">
-            </div>
-        </div>
-        <div class="layui-col-md6">
-            <label class="layui-form-label">法人手机</label>
-            <div class="layui-input-block">
-                <input type="text" lay-verify="phone" class="layui-input" data-ng-model="useCompany.legalPersonMobile">
-            </div>
-        </div>
-    </div>
-    <div class="layui-row layui-col-space10 layui-form-item">
-        <div class="layui-col-md6">
-            <label class="layui-form-label">法人证件</label>
-            <div class="layui-input-block">
-                <input type="text"  lay-verify="required" class="layui-input" data-ng-model="useCompany.legalPersonIdentity">
-            </div>
-        </div>
-    </div>
-    <div class="layui-row layui-col-space10 layui-form-item">
-        <div class="layui-col-md6">
-            <label class="layui-form-label">经度</label>
-            <div class="layui-input-block">
-                <input type="text" lay-verify="required" readonly class="layui-input" data-ng-model="useCompany.latitude">
-            </div>
-        </div>
-        <div class="layui-col-md6">
-            <label class="layui-form-label">纬度</label>
-            <div class="layui-input-block">
-                <input type="text"  lay-verify="required" readonly class="layui-input" data-ng-model="useCompany.longitude">
-            </div>
-        </div>
-    </div>
-    <!--地图模块-->
-    <div class="layui-form layui-card-header" style="padding:15px 0;height: auto">
-        <div class="layui-form-item">
-            <div class="layui-inline">
-                <label class="layui-form-label">地址：</label>
-                <div class="layui-input-block">
-                    <input type="text" class="layui-input" ng-model="mapAtr">
+<!--警告列表-->
+<div class="layui-form" id="alerts" style="padding: 20px 30px 0 0;display: none">
+    <div class="layui-fluid">
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-md12">
+                <div class="layui-card">
+                    <div class="layui-card-body">
+                        <table class="layui-table" lay-skin="line">
+                            <thead>
+                            <tr>
+                                <th>名称</th>
+                                <th>原因</th>
+                                <th>创建时间</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in alertsList">
+                                <!--<td>{{item.id}}</td>-->
+                                <td>{{item.dname}}</td>
+                                <td>{{item.type | enumFilter:'warnType'}}</td>
+                                <td>{{item.created | timeFilter}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div id="alertsPage"></div>
+                    </div>
                 </div>
             </div>
-            <div class="layui-inline">
-                <a class="layui-btn" ng-click="searchMap()"><i class="layui-icon layui-icon-search"></i></a>
-            </div>
         </div>
     </div>
-    <div id="allMap" style="width: 100%;height: 300px"></div>
-    <div id="r-result" style="width: 100%;"></div>
+</div>
 
-    <div class="layui-form-item">
-        <div class="layui-input-block" style="text-align: right;padding-top: 20px">
-            <button class="layui-btn" lay-submit>确认提交</button>
-        </div>
-    </div>
-</form>
+<!--&lt;!&ndash;使用单位页面&ndash;&gt;-->
+<!--<form class="layui-form" id="useCompany" ng-submit="submit()" style="padding: 20px 30px 0 0;display: none">-->
+    <!--<div class="layui-row layui-col-space10 layui-form-item">-->
+        <!--<div class="layui-col-md6">-->
+            <!--<label class="layui-form-label">企业名称</label>-->
+            <!--<div class="layui-input-block">-->
+                <!--<input type="text"  lay-verify="required" class="layui-input" data-ng-model="useCompany.name">-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="layui-col-md6">-->
+            <!--<label class="layui-form-label">企业详细地址</label>-->
+            <!--<div class="layui-input-block">-->
+                <!--<input type="text"  lay-verify="required" class="layui-input" data-ng-model="useCompany.address">-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="layui-row layui-col-space10 layui-form-item">-->
+        <!--<div class="layui-col-md6">-->
+            <!--<label class="layui-form-label">企业属性</label>-->
+            <!--<div class="layui-input-block">-->
+                <!--<input type="text" lay-verify="required" class="layui-input" data-ng-model="useCompany.attr">-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="layui-col-md6">-->
+            <!--<label class="layui-form-label">注册时间</label>-->
+            <!--<div class="layui-input-block">-->
+                <!--<input type="text" class="layui-input" data-ng-model="useCompany.registerTime" id="registerTime"  laydate laydate-type="datetime">-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="layui-row layui-col-space10 layui-form-item">-->
+        <!--<div class="layui-col-md6">-->
+            <!--<label class="layui-form-label">行政区划代码</label>-->
+            <!--<div class="layui-input-block">-->
+                <!--<input type="text"  lay-verify="required" class="layui-input" data-ng-model="useCompany.popedom">-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="layui-col-md6">-->
+            <!--<label class="layui-form-label">企业法人</label>-->
+            <!--<div class="layui-input-block">-->
+                <!--<input type="text" lay-verify="required" class="layui-input" data-ng-model="useCompany.legalPersonName">-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="layui-row layui-col-space10 layui-form-item">-->
+        <!--<div class="layui-col-md6">-->
+            <!--<label class="layui-form-label">社会信用代码</label>-->
+            <!--<div class="layui-input-block">-->
+                <!--<input type="text" lay-verify="required" class="layui-input" data-ng-model="useCompany.socialCreditCode">-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="layui-col-md6">-->
+            <!--<label class="layui-form-label">法人手机</label>-->
+            <!--<div class="layui-input-block">-->
+                <!--<input type="text" lay-verify="phone" class="layui-input" data-ng-model="useCompany.legalPersonMobile">-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="layui-row layui-col-space10 layui-form-item">-->
+        <!--<div class="layui-col-md6">-->
+            <!--<label class="layui-form-label">法人证件</label>-->
+            <!--<div class="layui-input-block">-->
+                <!--<input type="text"  lay-verify="required" class="layui-input" data-ng-model="useCompany.legalPersonIdentity">-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="layui-row layui-col-space10 layui-form-item">-->
+        <!--<div class="layui-col-md6">-->
+            <!--<label class="layui-form-label">经度</label>-->
+            <!--<div class="layui-input-block">-->
+                <!--<input type="text" lay-verify="required" readonly class="layui-input" data-ng-model="useCompany.latitude">-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="layui-col-md6">-->
+            <!--<label class="layui-form-label">纬度</label>-->
+            <!--<div class="layui-input-block">-->
+                <!--<input type="text"  lay-verify="required" readonly class="layui-input" data-ng-model="useCompany.longitude">-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--&lt;!&ndash;地图模块&ndash;&gt;-->
+    <!--<div class="layui-form layui-card-header" style="padding:15px 0;height: auto">-->
+        <!--<div class="layui-form-item">-->
+            <!--<div class="layui-inline">-->
+                <!--<label class="layui-form-label">地址：</label>-->
+                <!--<div class="layui-input-block">-->
+                    <!--<input type="text" class="layui-input" ng-model="mapAtr">-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="layui-inline">-->
+                <!--<a class="layui-btn" ng-click="searchMap()"><i class="layui-icon layui-icon-search"></i></a>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div id="allMap" style="width: 100%;height: 300px"></div>-->
+    <!--<div id="r-result" style="width: 100%;"></div>-->
+
+    <!--<div class="layui-form-item">-->
+        <!--<div class="layui-input-block" style="text-align: right;padding-top: 20px">-->
+            <!--<button class="layui-btn" lay-submit>确认提交</button>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</form>-->
 
