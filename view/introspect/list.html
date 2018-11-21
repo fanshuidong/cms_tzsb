@@ -3,13 +3,10 @@
         <div class="layui-col-md12">
             <div class="layui-card">
                 <!--search-->
-                <div class="layui-form layui-card-header" style="padding:15px 0;height: auto">
+                <div class="layui-form layui-card-header" style="padding:15px 0;height: auto;margin-left: 15px">
                     <div class="layui-form-item">
                         <div class="layui-inline">
-                            <label class="layui-form-label">标题</label>
-                            <div class="layui-input-block">
-                                <input type="text" class='layui-input' ng-model="searchEntity.title">
-                            </div>
+                            <input type="text" class='layui-input' placeholder="使用单位" ng-model="searchEntity.name">
                         </div>
                         <div class="layui-inline">
                             <button class="layui-btn" ng-click="search()"><i class="layui-icon layui-icon-search"></i></button>
@@ -26,8 +23,7 @@
                     <table class="layui-table" lay-skin="line">
                         <thead>
                         <tr>
-                            <th>名称</th>
-                            <th>法人</th>
+                            <th>使用单位</th>
                             <th>填报时间</th>
                             <th>填报人</th>
                             <th>填报人电话</th>
@@ -36,16 +32,9 @@
                         <tbody>
                         <tr ng-repeat="item in list">
                             <td>{{item.name}}</td>
-                            <td>{{item.categoryName}}</td>
                             <td>{{item.created | timeFilter}}</td>
                             <td>{{item.filler}}</td>
                             <td>{{item.fillerPhone}}</td>
-                            <td>
-                                <a class="layui-btn layui-btn-normal layui-btn-xs" data-ng-click="edit(item)">
-                                    <i class="layui-icon layui-icon-edit"></i>编辑</a>
-                                <a class="layui-btn layui-btn-danger layui-btn-xs" data-ng-click="delete(item)">
-                                    <i class="layui-icon layui-icon-delete"></i>删除</a>
-                            </td>
                         </tr>
                         </tbody>
                     </table>
