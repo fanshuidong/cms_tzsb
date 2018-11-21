@@ -12,6 +12,7 @@ define(function (require) {
             allowClear: false,
             language : 'zh-CN'
         };
+        $scope.useRegions = $rootScope.regions;
         $scope.query=function(reset){
             if(reset){
                 $scope.searchEntity = {"page":1,"pageSize":10}
@@ -52,11 +53,11 @@ define(function (require) {
             $scope.isAdd = true;
         };
         $scope.edit  = function (item) {
-            $scope.index = openDomLayer("编辑用户","user");
             $scope.user = {};
             for(var index in item)
                 $scope.user[index] = item[index];
             $scope.isAdd = false;
+            $scope.index = openDomLayer("编辑用户","userModify");
         };
         $scope.delete = function () {
             layer.confirm("确认删除该条记录吗？",function () {
@@ -73,6 +74,7 @@ define(function (require) {
                     toastr.success("操作成功!");
                     layer.closeAll();
                     $("#user").hide();
+                    $("#userModify").hide();
                     $scope.query();
                 }
             });

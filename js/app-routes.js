@@ -21,8 +21,14 @@ define(function (require) {
             url: "eep/user/privilleges",
             data:{regionChain:true}
         }).success(function(data) {
-            console.log(data.attach.regions);
             $rootScope.regions = data.attach.regions;
+            for(var i = 0; i< $rootScope.regions.length;i++){
+                if(!$rootScope.regions[i].own){
+                    $rootScope.regions.splice(i,1);
+                    i--;
+                }
+            }
+            console.log($rootScope.regions);
         });
         //获取使用单位列表
         $http({

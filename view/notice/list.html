@@ -144,11 +144,11 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="law in lawList">
-                            <td>{{law.title}}</td>
-                            <td>{{law.content | subString:20}}</td>
+                        <tr ng-repeat="item in lawList">
+                            <td>{{item.title}}</td>
+                            <td>{{item.content | subString:20}}</td>
                             <td>
-                                <a class="layui-btn layui-btn-normal layui-btn-xs" data-ng-click="lawDetail(law)">
+                                <a class="layui-btn layui-btn-normal layui-btn-xs" data-ng-click="lawDetail(item)">
                                     <i class="layui-icon layui-icon-edit"></i>查看</a>
                             </td>
                         </tr>

@@ -47,7 +47,7 @@ define(function (require) {
         };
 
         $scope.openRepairs = function (item) {
-            $scope.cid = item.id;
+            $scope.rid = item.id;
             openDomLayer("检查记录列表","repairs",['700px','700px']);
             layui.use(['form'],function () {
                 var form = layui.form;
@@ -56,13 +56,13 @@ define(function (require) {
             $scope.repairs(true)
         };
 
-        $scope.repairs = function () {
+        $scope.repairs = function (reset) {
             if(reset){
-                $scope.searchEntity2 = {"page":1,"pageSize":10,"cid":$scope.cid}
+                $scope.searchEntity2 = {"page":1,"pageSize":10,region:$rootScope.region,"rid":$scope.rid}
             }
             $http({
                 method: 'POST',
-                url: "device/repairs/repair",
+                url: "eep/device/repairs/area",
                 data:$scope.searchEntity2
             }).success(function(data) {
                 $scope.repairsList = data.attach.list;

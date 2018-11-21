@@ -3,13 +3,10 @@
         <div class="layui-col-md12">
             <div class="layui-card">
                 <!--search-->
-                <div class="layui-form layui-card-header" style="padding:15px 0;height: auto">
+                <div class="layui-form layui-card-header" style="padding:15px 0;height: auto;margin-left: 15px">
                     <div class="layui-form-item">
                         <div class="layui-inline">
-                            <label class="layui-form-label">企业名称</label>
-                            <div class="layui-input-block">
-                                <input type="text" class='layui-input' ng-model="searchEntity.name">
-                            </div>
+                            <input type="text" class='layui-input' placeholder="单位名字" ng-model="searchEntity.name">
                         </div>
                         <div class="layui-inline">
                             <button class="layui-btn" ng-click="search()"><i class="layui-icon layui-icon-search"></i></button>
@@ -89,10 +86,10 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="item in lawList">
+                        <tr ng-repeat="item in repairsList">
                             <td>{{item.cname}}</td>
-                            <td>{{law.time | timeFilter}}</td>
-                            <td>{{law.nextTime | timeFilter}}</td>
+                            <td>{{item.time | timeFilter}}</td>
+                            <td>{{item.nextTime | timeFilter}}</td>
                             <td>
                                 <a class="layui-btn layui-btn-normal layui-btn-xs" data-ng-click="detail(item)">
                                     <i class="layui-icon layui-icon-edit"></i>查看详情</a>
