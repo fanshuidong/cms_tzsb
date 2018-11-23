@@ -47,6 +47,23 @@ define(function (require) {
             $scope.query(true);
         };
 
+        $scope.detail = function (item) {
+            openDomLayer("自查自纠详情","detail",["600px","600px"]);
+            $http({
+                method: 'POST',
+                url: "eep/company/introspect/detail",
+                data:{id:item.id}
+            }).success(function(data) {
+                console.log(data);
+                $scope.introspectDetail = data.attach;
+                $scope.introspectDetail.name = item.name;
+            });
+            layui.use(['element','form'],function () {
+                layui.element.init();
+                layui.form.render();
+            })
+        };
+
         //分页 laypage
         $scope.initPage = function(id,count,entity) {
             layui.use('laypage', function(){

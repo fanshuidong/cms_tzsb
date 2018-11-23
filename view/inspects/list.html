@@ -51,10 +51,28 @@
 <!--新增检查记录-->
 <form class="layui-form" id="inspects" ng-submit="submit()" style="padding: 20px 30px 0 0;display: none">
     <div class="layui-form-item">
+        <label class="layui-form-label">单位类型</label>
+        <div class="layui-input-block">
+            <select name="" id="type" required lay-filter="type">
+                <option value="" selected ng-disabled="true"></option>
+                <option value="use">使用单位</option>
+                <option value="repair">维保单位</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item" id="use" style="display: none">
         <label class="layui-form-label">使用单位</label>
         <div class="layui-input-block">
-            <select name="" required lay-search id="cid">
+            <select name="" lay-search id="useCompany" size="10">
                 <option data-ng-repeat="item in useCompanies" value="{{item.id}}">{{item.name}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item" id="repair" style="display: none">
+        <label class="layui-form-label">维保单位</label>
+        <div class="layui-input-block">
+            <select name="" lay-search id="repairCompany" size="10">
+                <option data-ng-repeat="item in repairCompanies" value="{{item.id}}">{{item.name}}</option>
             </select>
         </div>
     </div>
@@ -70,6 +88,13 @@
         <label class="layui-form-label">内容</label>
         <div class="layui-input-block">
             <textarea  lay-verify="required" class="layui-textarea" id="content"></textarea>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">短信提醒</label>
+        <div class="layui-input-block">
+            <input type="checkbox" name="smsSend" id="smsSend" lay-skin="switch" lay-text="开启|关闭" lay-filter="smsSend">
         </div>
     </div>
 

@@ -59,28 +59,28 @@ define(function (require) {
         };
 
         //发送监察指令书
+        $scope.notice = {};
         $scope.send = function () {
             openDomLayer("发送监察指令书","notice",['700px','600px']);
+            $("#smsSend").prop("checked",true);
+            $scope.notice.smsSend = true;
             layui.use(['form'],function () {
                 var form = layui.form;
+                form.on("switch(smsSend)",function (data) {
+                    $scope.notice.smsSend = data.elem.checked;
+                });
                 form.render();
-            })
+            });
         };
 
         $scope.sendSubmit = function () {
-            var obj = {
-                "cid":$("#cid").val(),
-                "problem":$("#problem").val(),
-                "measure":$("#measure").val(),
-                "closingTime":Date.parse($("#closingTime").val())/1000,
-                "deregulation":$("#deregulation").val(),
-                "processBasis":$("#processBasis").val(),
-                "warnLevel":$("#warnLevel").val()
-            };
+            $scope.notice.cid = $("#cid").val();
+            $scope.notice.closingTime =Date.parse($scope.notice.closingTime)/1000;
+            $scope.notice.warnLevel = $("#warnLevel").val();
             $http({
                 method: 'POST',
                 url: "eep/company/rectify/notice/create",
-                data:obj
+                data:$scope.notice
             }).success(function(data) {
                 console.log(data);
                 layer.closeAll();
@@ -133,6 +133,19 @@ define(function (require) {
             $("#title").val(item.title);
             $("#categoryName").val(item.categoryName);
             $("#content").val(item.content);
+        };
+
+        $scope.detail = function (item) {
+            openDomLayer("监察指令详情","detail",['500px','500px']);
+            $scope.noticeDetail={};
+            for(index in item){
+                $scope.noticeDetail[index] = item[index];
+            }
+            $scope.noticeDetail.closingTime = DateUtil.getFormateDate(new Date($scope.noticeDetail.closingTime*1000));
+            $("#warnLevel_").val($scope.noticeDetail.warnLevel);
+            layui.use(['form'],function () {
+                layui.form.render();
+            })
         };
         
         //分页 laypage

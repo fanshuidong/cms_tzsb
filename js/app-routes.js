@@ -386,7 +386,7 @@ define(function (require) {
 
     app.service("Url",function(){
         this.hasan = {
-            zxlUrl:"http://192.168.50.19/",
+            zxlUrl:"http://192.168.50.18/",
             fsdUrl:"http://localhost:8089/",
             online:"http://183.246.75.54:60080/"
         };

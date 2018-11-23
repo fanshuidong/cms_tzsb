@@ -49,12 +49,35 @@ define(function (require) {
         };
 
         $scope.images = [];
+        $scope.inspect = {};
         $scope.add = function () {
-            openDomLayer("新增检查记录","inspects",['700px','600px']);
+            openDomLayer("新增检查记录","inspects",['700px','700px']);
+            $("#smsSend").prop("checked",true);
+            $scope.inspect.smsSend = true;
             layui.use(['form'],function () {
                 var form = layui.form;
+                form.on('select(type)', function(data){
+                    switch(data.value){
+                        case "use":
+                            $("#use").show();
+                            $("#repair").hide();
+                            break;
+                        case "repair":
+                            $("#repair").show();
+                            $("#use").hide();
+                            break;
+                        default:
+                            $("#use").hide();
+                            $("#repair").hide();
+                            break;
+                    }
+                    form.on("switch(smsSend)",function (data) {
+                        $scope.inspect.smsSend = data.elem.checked;
+                    });
+                });
                 form.render();
-            })
+            });
+
         };
         $scope.addImage = function (image) {
             var render = new FileReader();
@@ -69,20 +92,23 @@ define(function (require) {
         };
 
         $scope.submit = function(){
-            var inspect = {
-                cid:$("#cid").val(),
-                rid:$("#rid").val(),
-                time:Date.parse($("#time").val())/1000,
-                nextTime:Date.parse($("#nextTime").val())/1000,
-                content:$("#content").val(),
-                files:[]
-            };
+            $scope.inspect.time= Date.parse($("#time").val())/1000;
+            $scope.inspect.content= $("#content").val();
+            $scope.inspect.files= [];
+            switch($("#type").val()){
+                case "use":
+                    $scope.inspect.cid = $("#useCompany").val();
+                    break;
+                case "repair":
+                    $scope.inspect.cid = $("#repairCompany").val();
+                    break;
+            }
             for(var i=0;i<$scope.images.length;i++){
-                inspect.files.push($scope.images[i].file);
+                $scope.inspect.files.push($scope.images[i].file);
             }
             Upload.upload({
                 url: 'eep/company/inspect/create',
-                data: inspect
+                data: $scope.inspect
             }).then(function (resp) {
                 if (resp.data.code === $rootScope.successCode) {
                     toastr.success("操作成功！");
@@ -102,8 +128,8 @@ define(function (require) {
             }).success(function(data) {
                 console.log(data);
                 $scope.inspectDetail = data.attach;
-                $scope.inspectDetail.time = DateUtil.getFormateDate($scope.inspectDetail.time);
-                $scope.inspectDetail.nextTime = DateUtil.getFormateDate($scope.inspectDetail.nextTime)
+                $scope.inspectDetail.time = DateUtil.getFormateDate(new Date($scope.inspectDetail.time*1000));
+                $scope.inspectDetail.nextTime = DateUtil.getFormateDate(new Date($scope.inspectDetail.time*1000))
             });
         };
         
