@@ -81,7 +81,8 @@
                 success: function(response) {
                     if(response.code === "code.ok") {
                         window.localStorage.setItem("t_token", response.attach.token);
-                        window.localStorage.setItem("t_userName", response.attach.user.nickname);
+                        window.localStorage.setItem("t_nickname", response.attach.user.nickname);
+                        window.localStorage.setItem("t_uname", response.attach.user.uname);
                         window.localStorage.setItem("t_uid", response.attach.user.id);
                         window.localStorage.setItem("t_apiUrl", data.field.apiUrl);
                         window.localStorage.setItem("t_region", response.attach.user.region);

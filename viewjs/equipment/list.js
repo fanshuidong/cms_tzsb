@@ -46,6 +46,22 @@ define(function (require) {
             $scope.query(true);
         };
 
+        $scope.detail = function (item) {
+            openDomLayer("设备详情","deviceDetail",['500px','500px']);
+            $scope.deviceDetail = {};
+            for(index in item)
+                $scope.deviceDetail[index] = item[index];
+            $http({
+                method: 'POST',
+                url: "eep/device/next/examine/time",
+                data:{id:item.id}
+            }).success(function(data) {
+                console.log(data);
+                $scope.deviceDetail.nextTime = data.attach!==null?DateUtil.getFormateDate(new Date(data.attach*1000)):"当前设备没有下次检查时间";
+            });
+        };
+
+
         //分页 laypage
         $scope.initPage = function(id,count,entity) {
             layui.use('laypage', function(){

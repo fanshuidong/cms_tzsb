@@ -10,7 +10,8 @@ define(function (require) {
         $rootScope.$state = $state;
         $rootScope.$stateParams = $stateParams;
         $rootScope.path = $location.path();
-        $rootScope.userName = window.localStorage.getItem("t_userName");
+        $rootScope.nickname = window.localStorage.getItem("t_nickname");
+        $rootScope.uname = window.localStorage.getItem("t_uname");
         $rootScope.uid = window.localStorage.getItem("t_uid");
         $rootScope.region = window.localStorage.getItem("t_region");
         $rootScope.defaultPageSize = 10;
@@ -23,7 +24,7 @@ define(function (require) {
         }).success(function(data) {
             $rootScope.regions = data.attach.regions;
             for(var i = 0; i< $rootScope.regions.length;i++){
-                if(!$rootScope.regions[i].own){
+                if(!$rootScope.regions[i].own || !$rootScope.regions[i].open){
                     $rootScope.regions.splice(i,1);
                     i--;
                 }
@@ -366,13 +367,13 @@ define(function (require) {
             .state("system.role", {
                 url: "/role",
                 templateUrl: "view/system/role.html",
-                controllerUrl: 'viewjs/system/roleCtrl.js',
+                controllerUrl: 'viewjs/system/role.js',
                 controller: "roleCtrl"
             })
             .state("system.column", {
                 url: "/column",
                 templateUrl: "view/system/column.html",
-                controllerUrl: 'viewjs/system/columnCtrl.js',
+                controllerUrl: 'viewjs/system/column.js',
                 controller: "columnCtrl"
             })
             .state("system.region", {
@@ -380,6 +381,12 @@ define(function (require) {
                 templateUrl: "view/system/region.html",
                 controllerUrl: 'viewjs/system/region.js',
                 controller: "regionCtrl"
+            })
+            .state("system.task", {
+                url: "/task",
+                templateUrl: "view/system/task.html",
+                controllerUrl: 'viewjs/system/task.js',
+                controller: "taskCtrl"
             })
 
     }]);

@@ -14,7 +14,7 @@
 		<ul class="layui-nav" lay-filter="rightNav">
 			<!--<li class="layui-nav-item"><a href="javascript:;" data-url="email.html" data-id='4' data-text="邮件系统"><i class="iconfont">&#xe603;</i></a></li>-->
 			<li class="layui-nav-item">
-				<a href="javascript:;" data-text="个人信息">{{userName}}</a>
+				<a href="javascript:;" data-text="个人信息">{{nickname}}</a>
 				<!--<dl class="layui-nav-child">-->
 					<!--<dd><a  ng-click="changePsw()">修改密码</a></dd>-->
 				<!--</dl>-->
@@ -34,19 +34,19 @@
 <form class="layui-form" id="pwd-form" ng-submit="confirm()" style="padding: 20px 30px 0 0;display: none">
 	<div class="layui-form-item">
 		<label class="layui-form-label">原密码</label>
-		<div class="layui-input-inline">
+		<div class="layui-input-block">
 			<input type="password" name="opassword"  lay-verify="required|password" class="layui-input" data-ng-model="list.opassword">
 		</div>
 	</div>
 	<div class="layui-form-item">
 		<label class="layui-form-label">新密码</label>
-		<div class="layui-input-inline">
+		<div class="layui-input-block">
 			<input type="password" name="npassword" lay-verify="required|password" class="layui-input" data-ng-model="list.npassword">
 		</div>
 	</div>
 	<div class="layui-form-item">
 		<label class="layui-form-label">确认新密码</label>
-		<div class="layui-input-inline">
+		<div class="layui-input-block">
 			<input type="password" id="newPassword" name="newPassword"  lay-verify="required|password" class="layui-input" data-ng-model="list.newPassword">
 		</div>
 	</div>

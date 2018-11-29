@@ -3,19 +3,23 @@
         <div class="layui-col-md12">
             <div class="layui-card">
                 <!--search-->
-                <div class="layui-form layui-card-header" style="padding:15px 0;height: auto">
+                <div class="layui-form layui-card-header" style="padding:15px 0;height: auto;margin-left: 15px">
                     <div class="layui-form-item">
                         <div class="layui-inline">
-                            <label class="layui-form-label">单位名称</label>
-                            <div class="layui-input-block">
-                                <input type="text" class='layui-input' ng-model="searchEntity.name">
+                            <input type="text" class='layui-input' placeholder="单位名称" ng-model="searchEntity.name">
+                        </div>
+                        <div class="layui-inline">
+                            <div class="layui-input-inline">
+                                <select lay-ignore ng-model="searchEntity.warnLevel" ui-select2="selectOptions" class="form-control" style="width: 200px">
+                                    <option  value="" selected>状态</option>
+                                    <option  data-ng-repeat="item in warnLevel" value="{{item.value}}">{{item.text}}</option>
+                                </select>
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label">状态</label>
-                            <div class="layui-input-block">
-                                <select lay-ignore ng-model="searchEntity.warnLevel" ui-select2="selectOptions" class="form-control" style="width: 200px">
-                                    <option  data-ng-repeat="item in warnLevel" value="{{item.value}}">{{item.text}}</option>
+                            <div class="layui-input-inline">
+                                <select lay-ignore ng-model="searchEntity.region" ui-select2="selectOptions" class="form-control" style="width: 200px">
+                                    <option  data-ng-repeat="item in regions" value="{{item.id}}">{{item.name}}</option>
                                 </select>
                             </div>
                         </div>
@@ -78,7 +82,8 @@
                         <table class="layui-table" lay-skin="line">
                             <thead>
                             <tr>
-                                <th>名称</th>
+                                <th>设备名称</th>
+                                <th>设备编号</th>
                                 <th>原因</th>
                                 <th>创建时间</th>
                             </tr>
@@ -87,6 +92,7 @@
                             <tr ng-repeat="item in alertsList">
                                 <!--<td>{{item.id}}</td>-->
                                 <td>{{item.dname}}</td>
+                                <td>{{item.deviceId}}</td>
                                 <td>{{item.type | enumFilter:'warnType'}}</td>
                                 <td>{{item.created | timeFilter}}</td>
                             </tr>

@@ -83,7 +83,7 @@ define(function (require) {
         $scope.alerts = function (item) {
             $scope.cid = item.id;
             $scope.alertsQuery(true);
-            $scope.index = openDomLayer("亮灯原因","alerts",['700px','600px']);
+            $scope.index = openDomLayer("亮灯原因","alerts",['900px','600px']);
         };
         $scope.alertsQuery =function (reset) {
             if(reset){
