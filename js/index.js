@@ -12,7 +12,7 @@ function openDomLayer(title,id,area) {
     return layer.open({
         title:title,
         type:1,
-        area:area?area:'auto',
+        area:area?area:"auto",
         content:$("#"+id),
         cancel: function(){
             $("#"+id).hide();

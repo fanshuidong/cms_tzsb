@@ -96,9 +96,30 @@ define(function (require) {
             }).success(function(data) {
                 $scope.alertsList = data.attach.list;
                 if(data.attach.total>10)
-                    $scope.initPage("alertsPage",data.attach.total,$scope.searchEntity);
+                    $scope.initPage("alertsPage",data.attach.total,$scope.searchEntity2);
             });
         };
+
+        $scope.homework = function (item) {
+            $scope.cid = item.id;
+            $scope.homeworkQuery(true);
+            $scope.index = openDomLayer("作业人员","homework",['70%','60%']);
+        };
+        $scope.homeworkQuery =function (reset) {
+            if(reset){
+                $scope.searchEntity3 = {page:1,pageSize:10,cid:$scope.cid};
+            }
+            $http({
+                method: 'POST',
+                url: "eep/company/operator/list",
+                data:$scope.searchEntity3
+            }).success(function(data) {
+                $scope.homeworkList = data.attach.list;
+                if(data.attach.total>10)
+                    $scope.initPage("homeworkPage",data.attach.total,$scope.searchEntity3);
+            });
+        };
+
         // 百度地图API功能
         // var map = new BMap.Map("allMap");
         // var point = new BMap.Point(116.331398,39.897445);
