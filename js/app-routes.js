@@ -433,10 +433,10 @@ define(function (require) {
         ];
         //单位状态
         this.warnLevel = [
-            {value:"GREEN",text:"绿灯",mark:1,color:"green"},
-            {value:"YELLOW",text:"黄灯",mark:2,color:"yellow"},
-            {value:"BLUE",text:"蓝灯",mark:3,color:"blue"},
-            {value:"RED",text:"红灯",mark:4,color:"red"}
+            {value:"GREEN",text:"绿灯",mark:0,color:"green"},
+            {value:"YELLOW",text:"黄灯",mark:1,color:"yellow"},
+            {value:"BLUE",text:"蓝灯",mark:2,color:"blue"},
+            {value:"RED",text:"红灯",mark:3,color:"red"}
         ];
         //设备注册状态
         this.regType = [

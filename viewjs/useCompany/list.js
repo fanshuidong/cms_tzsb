@@ -185,36 +185,21 @@ define(function (require) {
                         //首次不执行
                         if(!first){
                             entity.page=obj.curr;
-                            $scope.alertsQuery();
+                            switch(id){
+                                case "page":
+                                    $scope.query();
+                                    break;
+                                case "alertsPage":
+                                    $scope.alertsQuery();
+                                    break;
+                                case "homeworkPage":
+                                    $scope.homeworkQuery();
+                                    break;
+                            }
                         }
                     }
                 });
             });
         };
-        //分页 laypage
-        $scope.initPage = function(id,count,entity) {
-            layui.use('laypage', function(){
-                var laypage = layui.laypage;
-                //执行一个laypage实例
-                laypage.render({
-                    elem: id, //注意，这里的 test1 是 ID，不用加 # 号
-                    count: count, //数据总数，从服务端得到
-                    limit:entity.pageSize,
-                    limits:[entity.pageSize, 20, 30, 40, 50],
-                    curr:entity.page,
-                    groups:5,
-                    layout:['count','prev', 'page', 'next','limit','refresh','skip'],
-                    jump: function(obj, first){
-                        //首次不执行
-                        if(!first){
-                            entity.page=obj.curr;
-                            $scope.query();
-                        }
-                    }
-                });
-            });
-        };
-
-
     }]);
 });
