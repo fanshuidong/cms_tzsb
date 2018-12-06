@@ -1621,6 +1621,7 @@ input:-webkit-autofill:focus {
 .layui-nav-itemed .layui-nav-child {
   display: block;
   padding: 0;
+  margin-bottom: 0;
   background-color: #444c63 !important;;
 }
 .main-layout-side .layui-nav-tree .layui-nav-child a {
