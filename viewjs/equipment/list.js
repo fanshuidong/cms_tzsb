@@ -61,6 +61,31 @@ define(function (require) {
             });
         };
 
+        $scope.qrcodeDownload = function(){
+            var xmlResquest = new XMLHttpRequest();
+            // xmlResquest.open("POST", "http://183.246.75.54:60080/eep/device/qrcode/download", true);
+            xmlResquest.open("POST", "http://localhost:8089/eep/device/qrcode/download", true);
+            xmlResquest.setRequestHeader("Content-type", "application/json");
+            // xmlResquest.setRequestHeader("Authorization", "Bearer 6cda86e3-ba1c-4737-972c-f815304932ee");
+            xmlResquest.responseType = "blob";
+            xmlResquest.onload = function (oEvent) {
+                var content = xmlResquest.response;
+                var elink = document.createElement('a');
+                elink.download = "设备二维码.zip";
+                elink.style.display = 'none';
+                var blob = new Blob([content]);
+                elink.href = URL.createObjectURL(blob);
+                document.body.appendChild(elink);
+                elink.click();
+                document.body.removeChild(elink);
+            };
+            var ids = [];
+            for(var i = 0;i < $scope.list.length;i++){
+                ids.push($scope.list[i].id);
+            }
+            xmlResquest.send(JSON.stringify({"ids":ids}));
+        }
+
 
         //分页 laypage
         $scope.initPage = function(id,count,entity) {

@@ -53,6 +53,7 @@ define(function (require) {
             $scope.isAdd = true;
         };
         $scope.edit  = function (item) {
+            $scope.oldUname = item.uname;
             $scope.user = {};
             for(var index in item)
                 $scope.user[index] = item[index];
@@ -75,6 +76,11 @@ define(function (require) {
             })  
         };
         $scope.submit = function () {
+            if(!$scope.isAdd){
+                if($scope.oldUname === $scope.user.uname){
+                    delete $scope.user["uname"];
+                }
+            }
             $http({
                 method: 'POST',
                 url: $scope.isAdd?"eep/user/create":"eep/user/modify",
